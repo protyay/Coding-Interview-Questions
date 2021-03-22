@@ -11,7 +11,6 @@ public class WordSearch_LC79 {
             }
         }
         return false;
-
     }
 
     private boolean findStr(char[][] board, int r, int c, int count, String word) {
