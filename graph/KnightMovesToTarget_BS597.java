@@ -2,63 +2,59 @@ import java.util.*;
 
 public class KnightMovesToTarget_BS597 {
 
-    int[][] moves = { { 2, 1 }, { 2, -1 }, { -2, 1 }, { -2, -1 }, { 1, 2 }, { 1, -2 }, { -1, 2 }, { -1, -2 } };
+    public int knight(int A, int B, int C, int D, int E, int F) {
+        // Code here
+        int[][] moves = { { 2, 1 }, { 2, -1 }, { -2, 1 }, { -2, -1 }, { 1, 2 }, { 1, -2 }, { -1, 2 }, { -1, -2 } };
+        Deque<Location> locations = new ArrayDeque<>();
+        Location locStart = new Location(C, D);
+        boolean[][] visited = new boolean[A + 1][B + 1];
+        visited[C][D] = true;
+        locations.addLast(locStart);
+        int re = E;
+        int ce = F;
 
-    public int solve(int r, int c) {
-        LocPoint start = new LocPoint(0, 0);
-        Set<LocPoint> visited = new HashSet<>();
-        Deque<LocPoint> locations = new ArrayDeque<>();
-        locations.addLast(start);
         int steps = 0;
         while (!locations.isEmpty()) {
             int size = locations.size();
             while (size-- > 0) {
-                LocPoint p = locations.removeFirst();
-                visited.add(p);
-                if (p.x == r && p.y == c)
+                Location loc = locations.removeFirst();
+                int r = loc.r, c = loc.c;
+                if (r == re && c == ce)
                     return steps;
-                genNextLocations(locations, p, visited);
+
+                // Generate next possible move locations
+                for (int i = 0; i < moves.length; i++) {
+                    int rn = r + moves[i][0];
+                    int cn = c + moves[i][1];
+
+                    if (rn > A || cn > B || rn < 0 || cn < 0 || visited[rn][cn])
+                        continue;
+                    visited[rn][cn] = true;
+                    locations.addLast(new Location(rn, cn));
+                }
             }
             ++steps;
         }
-        return steps;
-    }
-
-    private void genNextLocations(Deque<LocPoint> locations, LocPoint p, Set<LocPoint> visitedLocs) {
-        for (int i = 0; i < moves.length; i++) {
-            int[] loc = moves[i];
-            LocPoint nextLoc = new LocPoint(p.x + loc[0], p.y + loc[1]);
-            if (!visitedLocs.contains(nextLoc) && inRange(nextLoc))
-                locations.addLast(nextLoc);
-        }
-    }
-
-    private boolean inRange(LocPoint a) {
-        // return a.x >= 0 && a.y >= 0;
-        return true;
+        return -1;
     }
 
     public static void main(String[] args) {
         KnightMovesToTarget_BS597 bs597 = new KnightMovesToTarget_BS597();
-        //int ans = bs597.solve(-5, 2);
-        //System.out.println(ans);
-        LocPoint a = new LocPoint(4, -5);
-        LocPoint b = new LocPoint(4, -5);
-        System.out.println(a.equals(b));
+        // int ans = bs597.solve(-5, 2);
+        // System.out.println(ans);
+        int A = 2, B = 20, C = 1, D = 18, E = 1, F = 5;
+        int ans = bs597.knight(A, B, C, D, E, F);
+        System.out.println(ans);
     }
 
 }
 
-class LocPoint {
-    int x;
-    int y;
+class Location {
+    int r;
+    int c;
 
-    LocPoint(int x, int y) {
-        this.x = x;
-        this.y = y;
-    }
-
-    public boolean equals(LocPoint rhs) {
-        return this.x == rhs.x && this.y == rhs.y;
+    Location(int r, int c) {
+        this.r = r;
+        this.c = c;
     }
 }

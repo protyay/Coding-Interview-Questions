@@ -47,8 +47,11 @@ public class CheapestFlightWithinKStops_LC787 {
         // DFS without pruning
         int cost = 0;
         boolean[] visited = new boolean[n];
-        int pathSum = dfs(adjList, new Pair(src, 0), dst, K+1, visited);
-        cost = pathSum == -1 ? -1 : pathSum;
+        List<Pair> srcEdge = adjList.get(src);
+        int pathSum = Integer.MAX_VALUE;
+        for (Pair p : srcEdge) {
+            pathSum = Math.min(dfs(adjList, p, dst, K, visited), pathSum);
+        }
         return cost;
     }
 
@@ -63,7 +66,10 @@ public class CheapestFlightWithinKStops_LC787 {
         for (Pair p : des) {
             if (visited[p.location])
                 continue;
-            cost = node.cost + dfs(adjList, p, dst, K - 1, visited);
+                int pathCost = dfs(adjList, p, dst, K - 1, visited);
+                if(pathCost == -1) return -1;
+                else
+                 cost = node.cost + pathCost ;
         }
         return cost;
     }
