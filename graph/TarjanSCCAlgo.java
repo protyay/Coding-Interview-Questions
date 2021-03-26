@@ -51,7 +51,7 @@ public class TarjanSCCAlgo {
                 // We have reached the start of a SCC
 
                 while (!this.stack.isEmpty() && this.lowLinks[this.stack.getFirst()] == this.lowLinks[at]) {
-                    this.visited[this.stack.getFirst()] = false;
+                    //this.visited[this.stack.getFirst()] = false;
                     this.sccs[this.stack.getFirst()] = sccCount;
                     this.stack.removeFirst();
                 }
