@@ -45,18 +45,18 @@ public class TarjanSCCAlgo {
                 dfs(to);
             }
             if (this.visited[to]) {
-                this.lowLinks[to] = Math.min(this.lowLinks[at], this.lowLinks[to]);
+                this.lowLinks[at] = Math.min(this.lowLinks[at], this.lowLinks[to]);
             }
-            if (this.lowLinks[at] == this.ids[at]) {
-                // We have reached the start of a SCC
+        }
+        if (this.lowLinks[at] == this.ids[at]) {
+            // We have reached the start of a SCC
 
-                while (!this.stack.isEmpty() && this.lowLinks[this.stack.getFirst()] == this.lowLinks[at]) {
-                    //this.visited[this.stack.getFirst()] = false;
-                    this.sccs[this.stack.getFirst()] = sccCount;
-                    this.stack.removeFirst();
-                }
-                this.sccCount++;
+            while (!this.stack.isEmpty() && this.lowLinks[this.stack.getFirst()] == this.lowLinks[at]) {
+                this.visited[this.stack.getFirst()] = false;
+                this.sccs[this.stack.getFirst()] = this.sccCount;
+                this.stack.removeFirst();
             }
+            this.sccCount++;
         }
     }
 
@@ -75,7 +75,7 @@ public class TarjanSCCAlgo {
         System.out.printf("Total number of strongly connected component is = %d \n", scc.length);
         for (List<Integer> sccs : vertexToSCCMap.values()) {
             String vertexGraph = sccs.stream().map(i -> String.valueOf(i)).collect(Collectors.joining("->"));
-            System.out.printf("Following vertex forms a strongly connected component , %s", vertexGraph);
+            System.out.printf("Following vertex forms a strongly connected component , %s \n", vertexGraph);
         }
     }
 
