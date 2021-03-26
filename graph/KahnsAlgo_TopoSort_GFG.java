@@ -10,7 +10,7 @@ public class KahnsAlgo_TopoSort_GFG {
                 inDegree[to]++;
             }
         }
-        //System.out.println(Arrays.toString(inDegree));
+        // System.out.println(Arrays.toString(inDegree));
 
         Deque<Integer> nodes = new ArrayDeque<>();
         for (int i = 0; i < V; i++) {
