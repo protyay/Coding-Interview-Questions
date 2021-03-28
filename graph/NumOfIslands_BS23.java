@@ -23,3 +23,4 @@ public class NumOfIslands_BS23 {
         fillIsland(matrix, r, c + 1);
         fillIsland(matrix, r, c - 1);
     }
+}

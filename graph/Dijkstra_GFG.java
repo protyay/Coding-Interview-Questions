@@ -23,9 +23,9 @@ public class Dijkstra_GFG {
             while(size-- > 0){
                 Edge currEdge = minCost.remove();
                 visited[currEdge.to] = true;
-                //if(distCost[currEdge.to] < currEdge.cost) continue;
                 if(distCost[currEdge.to] > currEdge.cost)
                     distCost[currEdge.to] = currEdge.cost;
+                    
                 // Start exploring the neighbours
                 ArrayList<ArrayList<Integer>> edges = adj.get(currEdge.to);
                 for(ArrayList<Integer> edge : edges){
@@ -50,4 +50,4 @@ class Edge {
         return new Edge(to, cost);
     }
 }
-}
+

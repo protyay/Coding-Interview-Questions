@@ -7,35 +7,35 @@ public class PreorderTraversal {
     public List<Integer> preorderTraversal_itertative(TreeNode root) {
         if (root == null)
             return List.of();
+        List<Integer> result = new ArrayList<>();
+        Deque<TreeNode> stack = new ArrayDeque<>();
 
-        List<Integer> traversal = new ArrayList<>();
-        Deque<TreeNode> treeNodes = new ArrayDeque<>();
-        fillNodes(root, treeNodes, traversal);
+        stack.addFirst(root);
+        // Fill the stack with the root node
+        while (!stack.isEmpty()) {
+            TreeNode curTreeNode = stack.removeFirst();
+            result.add(curTreeNode.val);
 
-        while (!treeNodes.isEmpty()) {
-            TreeNode currNode = treeNodes.removeFirst();
-            fillNodes(currNode.right, treeNodes, traversal);
+            if (curTreeNode.right != null)
+                stack.addFirst(curTreeNode.right);
+            if (curTreeNode.left != null)
+                stack.addFirst(curTreeNode.left);
         }
-        return traversal;
+        return result;
     }
 
-    private void fillNodes(TreeNode root, Deque<TreeNode> treeNodes, List<Integer> vals) {
-        while (root != null) {
-            vals.add(root.val);
-            treeNodes.addFirst(root);
-            root = root.left;
-        }
-    }
     /**
      * Recursive Implementation for Preorder traversal
+     * 
      * @param root
      * @param nodes
      */
-    private void walkPreOrder(TreeNode root,List<Integer> nodes){
-        if(root == null) return;
-        
+    private void walkPreOrder(TreeNode root, List<Integer> nodes) {
+        if (root == null)
+            return;
+
         nodes.add(root.val);
         walkPreOrder(root.left, nodes);
         walkPreOrder(root.right, nodes);
-  }
+    }
 }

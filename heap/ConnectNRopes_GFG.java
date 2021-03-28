@@ -8,7 +8,7 @@ public class ConnectNRopes_GFG {
             minH.add(rope);
         }
         long cost = 0;
-        while (!minH.isEmpty() && minH.size() > 1) {
+        while (minH.size() > 1) {
             long currCost = minH.poll() + minH.poll();
             minH.add(currCost);
             cost += currCost;

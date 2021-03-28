@@ -32,6 +32,7 @@ public class StronglyConnComp_Kosaraju {
             StronglyConnComp_Kosaraju ob = new StronglyConnComp_Kosaraju();
             System.out.println(ob.kosaraju(V, adj));
         }
+        sc.close();
     }
 
     public int kosaraju(int V, ArrayList<ArrayList<Integer>> adj) {
