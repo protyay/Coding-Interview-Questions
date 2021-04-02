@@ -1,3 +1,5 @@
+package bfs;
+
 import java.util.*;
 
 public class RottenOranges_LC994 {
