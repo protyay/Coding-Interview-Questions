@@ -19,7 +19,7 @@ public class BellmanFord_GFG {
         for (int[] edge : edges) {
             int from = edge[0], to = edge[1], wt = edge[2];
             if (dist[from] + wt < dist[to])
-                return 1;
+                return 1;   
         }
 
         return 0;

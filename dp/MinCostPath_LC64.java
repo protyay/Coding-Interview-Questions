@@ -16,7 +16,6 @@ public class MinCostPath_LC64 {
     /**
      * Accepts a 2D grid which memoized intermediate results
      * 
-     * @param grid
      * @param r
      * @param c
      * @param memo
