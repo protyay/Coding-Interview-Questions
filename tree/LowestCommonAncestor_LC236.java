@@ -25,3 +25,17 @@ public class LowestCommonAncestor_LC236 {
         return l + r + curr;
     }
 }
+/**
+ * This is one of the most important question. 
+ * 
+ * This algorithm would traverse the whole tree even if the given nodes are found at the top. That's okay.
+ * 
+ * The clean template is that standing at a current node, we give back the total of left + total of right + current.
+ * Assumably it is less than 2. 
+ * 
+ * We can reuse this method in many other problems where the parent node gathers information from it's left and right children,
+ * add it's own information and pass it on to it's parent.
+ * 
+ * TC - O(N)
+ * SC - O(N)
+ */

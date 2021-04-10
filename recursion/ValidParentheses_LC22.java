@@ -16,10 +16,15 @@ public class ValidParentheses_LC22 {
         }
         if (o == c)
             dfs(n, temp + "(", res, o - 1, c);
-        else if (o < c)
+        else if (o < c) {
             if (o > 0)
                 dfs(n, temp + "(", res, o - 1, c);
-        if (c > 0)
-            dfs(n, temp + ")", res, o, c - 1);
+            if (c > 0)
+                dfs(n, temp + ")", res, o, c - 1);
+        }
     }
 }
+/**
+ * Try and draw the choice state.
+ * 
+ */

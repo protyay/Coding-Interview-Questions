@@ -30,6 +30,8 @@ public class LongestOnesAfterOneSwap_BS285 {
                 }
             }
             maxOneLen = Math.max(maxOneLen, j - i + 1);
+            // Special invariant - If we hit a scenario wherein we have already included
+            // all available ones in the string, then we simply break early and return
             if (zeroCount > 0 && maxOneLen - zeroCount >= oneCount) {
                 return maxOneLen - 1;
             }
@@ -37,3 +39,15 @@ public class LongestOnesAfterOneSwap_BS285 {
         return maxOneLen;
     }
 }
+/**
+ * This follows the typical two-pointer sliding window appraoch
+ * 
+ * Points to take care of - Be very critical while adjusting left pointers
+ * because we are restoring the invariant here before we proceed any further.
+ * 
+ * When to trigger the pointer adjustment ? In this case - because we want max
+ * consecutive ones, if we encounter consecutive zero, we immediately adjust the
+ * left pointer to restore 1 zero
+ * 
+ * 
+ */

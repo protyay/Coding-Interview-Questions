@@ -34,3 +34,12 @@ public class LongestSubListWithKDistinct_BS12 {
     }
 
 }
+/**
+ * Another typical Sliding window two pointers question
+ * 
+ * When we are asked to maintain K Distinct characters, we would use a hashMap
+ * to maintain the invariant. 
+ * 
+ * Check base conditions.
+ *
+ */

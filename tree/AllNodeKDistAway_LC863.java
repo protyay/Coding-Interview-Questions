@@ -58,3 +58,13 @@ public class AllNodeKDistAway_LC863 {
         populateMap(parentMap, root.right, root);
     }
 }
+/**
+ * We can achieve so much if we traverse the whole tree and
+ * build parent pointers.
+ * Let's say , we want to find redundant edge in a tree.
+ * If we encounter a node with two different parents, it simply means there's a redundant edge
+ * 
+ * Also, parent pointer is a great link to traverse the whole tree from a certain point.
+ * 
+ * Also, take special care 
+ */

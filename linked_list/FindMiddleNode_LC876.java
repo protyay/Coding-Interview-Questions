@@ -16,3 +16,8 @@ public class FindMiddleNode_LC876 {
         return slow;
     }
 }
+/**
+ * Two pointer approach with slow and fast solves many problem for Linked List
+ * TC - O(N)
+ * SC - O(1)
+ */

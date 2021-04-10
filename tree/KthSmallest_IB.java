@@ -24,3 +24,9 @@ public class KthSmallest_IB {
         }
     }
 }
+/**
+ * For BST problems, it's absolutely necessary to determine where will be the next number
+ * in the inorder traversal of a tree
+ * 
+ * 
+ */

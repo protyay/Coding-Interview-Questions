@@ -13,3 +13,9 @@ public class InvertBT_LC226 {
         return A;
     }
 }
+/**
+ * If tree is typically a pointer manipulation program, then
+ * reach the left-most leaf node 
+ * 
+ * Start manipulating tree from the leaf. Build upwards to the root
+ */
