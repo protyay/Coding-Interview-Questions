@@ -31,4 +31,9 @@ public class MinimizeAbsDifference_BS887 {
         }
         return ans;
     }
+    public static void main(String[] args) {
+        MinimizeAbsDifference_BS887 bs887 = new MinimizeAbsDifference_BS887();
+        int[] arr = {1,3,5};
+        bs887.calcDiff(arr, 4);
+    }
 }
