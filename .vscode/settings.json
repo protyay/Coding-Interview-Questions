@@ -1,5 +1,7 @@
 {
     "java.project.sourcePaths": [
-        "sort_search"
+        "stack_queue",
+        "sort_search",
+        "string"
     ]
 }
