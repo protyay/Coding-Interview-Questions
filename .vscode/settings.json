@@ -3,6 +3,7 @@
         "string",
         "stack_queue",
         "sort_search",
-        "design"
+        "design",
+        "greedy"
     ]
 }
