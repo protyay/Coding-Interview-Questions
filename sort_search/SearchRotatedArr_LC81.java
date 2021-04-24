@@ -1,4 +1,4 @@
-public class SearchInARotatedSortedArr_LC33 {
+public class SearchRotatedArr_LC81 {
     // Each element is DISTINCT
     public int search(int[] nums, int target) {
         // We have two halves of the array that are sorted
@@ -12,9 +12,9 @@ public class SearchInARotatedSortedArr_LC33 {
         // TC - [1], [3,1],[4 5 6 7 0 1 2], [1 2 3 4 5 6]
         // [2,5,6,0,0,1,2] - Start index must be adjusted if nums[start] == nums[end]
         // [1 0 1 1 1]
-       
+
         int start = 0, end = nums.length - 1;
-        
+
         while (start <= end) {
             int mid = start + (end - start) / 2;
             if (nums[mid] == target)

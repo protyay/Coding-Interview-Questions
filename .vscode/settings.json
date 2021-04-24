@@ -3,7 +3,8 @@
         "string",
         "stack_queue",
         "sort_search",
+        "greedy",
         "design",
-        "greedy"
+        "math"
     ]
 }
