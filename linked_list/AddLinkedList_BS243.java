@@ -45,3 +45,38 @@ class LLNode {
     int val;
     LLNode next;
 }
+/**
+ * The common framework for string or LinkedList addition is to do
+ * A. Traverse until both of the list(or string) are exhausted
+ * B. Use the sum as the carry option
+ */
+class AddNumbers_LC2 {
+    public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
+        ListNode ans = new ListNode();
+        ListNode head = ans;
+
+        int sum = 0;// Sum variable can be reused as carry
+        while (l1 != null || l2 != null) {
+            if (l1 != null) {
+                sum += l1.val;
+                l1 = l1.next;
+            }
+            if (l2 != null) {
+                sum += l2.val;
+                l2 = l2.next;
+            }
+
+            ListNode next = new ListNode(sum % 10);
+            head.next = next;
+            head = head.next;
+
+            sum = sum / 10;
+        }
+        while (sum > 0) {
+            ListNode lastNode = new ListNode(sum);
+            head.next = lastNode;
+            sum = sum / 10;
+        }
+        return ans.next;
+    }
+}
