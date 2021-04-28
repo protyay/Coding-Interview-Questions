@@ -1,39 +1,21 @@
-import java.util.Map;
-
 public class UnidirStrSearch_BS37 {
 
     public boolean solve(String[][] board, String word) {
-        // At each index, we have two choices
-        Map<String, Boolean> target = Map.of(word, true);
-        StringBuilder str = new StringBuilder();
-
-        int r = board.length, c = board[0].length;
-
-        int k = 0;
-        // Apply two pointer on the board both row-wise and col-wise
-        for (int i = 0; i < r; i++) {
-            for (int j = 0; j < c; j++) {
-                if (str.length() < word.length()) {
-                    str.append(board[i][j]);
-                } else {
-                    if (target.containsKey(str.toString()))
-                        return true;
-                    str.deleteCharAt(k);
-                    str.append(board[i][j]);
-                    k++;
-                }
+        StringBuilder str = null;
+        for (int i = 0; i < board.length; i++) {
+            str = new StringBuilder();
+            for (int j = 0; j < board[0].length; j++) {
+                str.append(board[i][j]);
+                if (str.toString().contains(word))
+                    return true;
             }
         }
-        for (int i = 0; i < c;) {
-            for (int j = 0; j < r; j++) {
-                if (j - i < word.length()) {
-                    str.append(board[i][j]);
-                    continue;
-                }
-                if (target.containsKey(str.toString()))
+        for (int i = 0; i < board[0].length; i++) {
+            str = new StringBuilder();
+            for (int j = 0; j < board.length; j++) {
+                str.append(board[j][i]);
+                if (str.toString().contains(word))
                     return true;
-                str.deleteCharAt(i++);
-                str.append(board[i][j]);
             }
         }
         return false;
@@ -47,3 +29,8 @@ public class UnidirStrSearch_BS37 {
         System.out.println("Ans = " + ans);
     }
 }
+/**
+ * The running time for this algorithm is a bit tricky.
+ * This runs in O(M*N*K) + O(M*N*K) time. 
+ * this k factor is introduced for contains 
+ */
