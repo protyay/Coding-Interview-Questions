@@ -34,3 +34,23 @@ public class BuildBSTFromSortedArray_IB {
         System.out.println("Resultant tree " + res);
     }
 }
+/**
+ * This is a simple yet very important concept.
+ * Please make sure, that the index to copy for the right subtree would
+ * start from mid + 1.
+ * 
+ */
+class ConvertSortedArrtoBST_LC108 {
+    public TreeNode sortedArrayToBST(int[] nums) {
+        if (nums.length == 0)
+            return null;
+
+        int mid = nums.length / 2;
+        int rootVal = nums[mid];
+        TreeNode currNode = new TreeNode(rootVal);
+
+        currNode.left = sortedArrayToBST(Arrays.copyOfRange(nums, 0, mid));
+        currNode.right = sortedArrayToBST(Arrays.copyOfRange(nums, mid + 1, nums.length));
+        return currNode;
+    }
+}

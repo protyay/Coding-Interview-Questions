@@ -1,13 +1,16 @@
 {
-    "java.project.sourcePaths": [
-        "string",
-        "stack_queue",
-        "sort_search",
-        "math",
-        "linked_list",
-        "greedy",
-        "design",
-        "array",
-        "graph"
-    ]
+        "java.project.sourcePaths": [
+                "string",
+                "stack_queue",
+                "sort_search",
+                "math",
+                "linked_list",
+                "greedy",
+                "design",
+                "array",
+                "graph",
+                "greedy",
+                "design",
+                "tree"
+        ]
 }

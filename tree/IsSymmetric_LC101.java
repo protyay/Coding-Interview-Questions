@@ -1,4 +1,5 @@
 public class IsSymmetric_LC101 {
+    // SDE problem 
     public boolean isSymmetric(TreeNode root) {
         if (root == null)
             return true;
@@ -13,3 +14,6 @@ public class IsSymmetric_LC101 {
         return a.val == b.val && checkSym(a.left, b.right) && checkSym(a.right, b.left);
     }
 }
+/**
+ * Very important problem where we need to compare two trees 
+ */

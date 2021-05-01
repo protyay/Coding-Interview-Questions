@@ -1,5 +1,6 @@
 /**
  * This is also a typical pointer manipulation, @link{RemoveHalfNodes_IB.java}
+ * SDE problem
  */
 public class InvertBT_LC226 {
     public TreeNode invertTree(TreeNode A) {

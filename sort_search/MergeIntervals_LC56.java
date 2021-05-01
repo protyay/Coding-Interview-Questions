@@ -1,6 +1,8 @@
 import java.util.Arrays;
 import java.util.LinkedList;
-
+/**
+ * SDE problem
+ */
 public class MergeIntervals_LC56 {
     public int[][] merge(int[][] intervals) {
         // Sort the intervals in asc order based on the starting time

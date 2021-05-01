@@ -4,6 +4,7 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 /** 
  * Running TC - O(E Log V)
+ * SDE(Graph) problem
 */
 public class Dijkstra_GFG {
     static int[] dijkstra(int V, ArrayList<ArrayList<ArrayList<Integer>>> adj, int S)

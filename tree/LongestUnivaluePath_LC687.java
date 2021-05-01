@@ -1,6 +1,7 @@
 public class LongestUnivaluePath_LC687 {
     int maxPathLen = 0;
 
+    // SDE problem
     public int longestUnivaluePath(TreeNode root) {
         dfs(root);
         return maxPathLen;
@@ -24,6 +25,7 @@ public class LongestUnivaluePath_LC687 {
 }
 
 /**
- * The simple idea behind the problem is to aggregate the length from the L and R subtree
- * and return and add the info for the current node and pass it on to the parent.
+ * The simple idea behind the problem is to aggregate the length from the L and
+ * R subtree and return and add the info for the current node and pass it on to
+ * the parent.
  */
