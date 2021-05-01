@@ -4,8 +4,10 @@
         "stack_queue",
         "sort_search",
         "math",
+        "linked_list",
         "greedy",
         "design",
-        "linked_list"
+        "array",
+        "graph"
     ]
 }

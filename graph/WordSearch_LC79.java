@@ -22,8 +22,7 @@ public class WordSearch_LC79 {
 
         char temp = board[r][c];
         board[r][c] = '*';
-        // If either one of these calls result in true, we skip all calls; // May be
-        // this is pruning ?
+        // If either one of these calls result in true, we skip all calls;
         boolean found = findStr(board, r + 1, c, count + 1, word) || findStr(board, r - 1, c, count + 1, word)
                 || findStr(board, r, c + 1, count + 1, word) || findStr(board, r, c - 1, count + 1, word);
         board[r][c] = temp;

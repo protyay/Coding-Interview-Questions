@@ -1,3 +1,6 @@
+import java.util.HashSet;
+import java.util.Set;
+
 public class ValidSudoku_LC36 {
     public boolean isValidSudoku(char[][] board) {
         Set<String> rowCache = new HashSet<>();
