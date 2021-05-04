@@ -1,4 +1,5 @@
 public class SubsequenceStr_BS21 {
+    // SDE problem
     public boolean solve(String s1, String s2) {
         if (s1.isEmpty())
             return true;

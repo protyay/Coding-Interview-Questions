@@ -1,35 +1,53 @@
 import java.util.*;
+
 public class ReorganizeStr_LC737 {
     public String reorganizeString(String S) {
-        Map<Character, Integer> chFreq = new HashMap<>();
-        char[] ch = S.toCharArray();
-        int N = S.length();
-        int maxPermissible = (int) Math.ceil(N / 2.0d);
-
+        if (S == null || S.isEmpty() || S.length() == 1)
+            return S;
+        Queue<CharFreq> maxHeap = new PriorityQueue<>((a, b) -> Integer.compare(b.freq, a.freq));
+        int[] freq = new int[26];
+        int maxFreq = (int) Math.ceil(S.length() / 2.0);
         for (int i = 0; i < S.length(); i++) {
-            int freq = chFreq.getOrDefault(ch[i], 0) + 1;
-            if (freq > maxPermissible)
+            char curr = S.charAt(i);
+            freq[curr - 'a']++;
+            if (freq[curr - 'a'] > maxFreq)
                 return "";
-            chFreq.put(ch[i], freq);
         }
-        // Build a string with the given freq such that the same characters
-        // doesn't appear consecutively
-        for (int i = 0; i < ch.length; i++) {
-
-            for (char c = 'a'; c <= 'z'; c++) {
-
-                if (chFreq.containsKey(c) && chFreq.get(c) > 0) {
-                    if (i > 0 && c == ch[i - 1])
-                        continue;
-                    ch[i] = c;
-                    chFreq.put(c, chFreq.get(c) - 1);
-                    if (chFreq.get(c) == 0)
-                        chFreq.remove(c);
-                    break;
-                }
-            }
+        // Add each char with their freq to HEAP
+        for (int i = 0; i < 26; i++) {
+            if (freq[i] == 0)
+                continue;
+            maxHeap.add(new CharFreq((char) ('a' + i), freq[i]));
         }
-        return new String(ch);
+        StringBuilder res = new StringBuilder();
+        while (maxHeap.size() > 1) {
+            // Poll the most frequent two characters
+            CharFreq mostFreq = maxHeap.remove();
+            CharFreq secondFreq = maxHeap.remove();
+            res.append(mostFreq.ch);
+            res.append(secondFreq.ch);
+            if (mostFreq.freq > 1)
+                maxHeap.add(mostFreq.decreaseByOne());
+            if (secondFreq.freq > 1)
+                maxHeap.add(secondFreq.decreaseByOne());
+        }
+        while (!maxHeap.isEmpty()) {
+            res.append(maxHeap.remove().ch);
+        }
+        return res.toString();
+    }
+}
+
+class CharFreq {
+    final char ch;
+    final int freq;
+
+    CharFreq(char ch, int freq) {
+        this.ch = ch;
+        this.freq = freq;
     }
 
+    CharFreq decreaseByOne() {
+        return new CharFreq(this.ch, this.freq - 1);
+    }
 }

@@ -1,29 +1,28 @@
 public class CountAndSay_LC38 {
 
     public String countAndSay(int n) {
-        if (n == 1) {
+        if (n == 1)
             return "1";
-        } else {
-            String res = countAndSay(n - 1);
-            if (res.equals("1"))
-                return "11";
-            StringBuilder str = new StringBuilder();
-            res += "#";
-            char[] ch = res.toCharArray();
-            int count = 1;
-            char currCh = ch[0];
-            for (int i = 1; i < ch.length; i++) {
-                if (ch[i] != ch[i - 1]) {
-                    str.append(count);
-                    str.append(currCh);
-                    currCh = ch[i];
-                    count = 1;
-                } else {
-                    ++count;
-                }
+        String res = countAndSay(n - 1);
+        StringBuilder digitStr = new StringBuilder();
+        int count = 1;
+        char prev = res.charAt(0);
+        for (int i = 1; i < res.length(); i++) {
+            char currCh = res.charAt(i);
+            if (currCh == prev) {
+                ++count;
+                continue;
             }
-            return str.toString();
+            digitStr.append(count);
+            digitStr.append(prev);
+
+            prev = currCh;
+            count = 1;
         }
+        digitStr.append(count);
+        digitStr.append(prev);
+
+        return digitStr.toString();
     }
 
     public static void main(String[] args) {
