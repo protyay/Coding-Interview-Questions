@@ -1,27 +1,23 @@
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GroupAnagram_LC49 {
     public List<List<String>> groupAnagrams(String[] strs) {
-        if (strs.length == 1)
-            return List.of(List.of(strs[0]));
-        Map<String, List<String>> group = new HashMap<>();
-        for (int i = 0; i < strs.length; i++) {
-            String curr = strs[i];
-            int[] ch = new int[26];
-            for (int k = 0; k < curr.length(); k++) {
-                ch[curr.charAt(k) - 'a']++;
-            }
-            StringBuilder strBuilder = new StringBuilder();
-            for (int k = 0; k < 26; k++) {
-                strBuilder.append('#');
-                strBuilder.append(ch[k]);
-            }
-            String key = strBuilder.toString();
-            group.computeIfAbsent(key, a -> new ArrayList<String>());
-            group.get(key).add(curr);
+        Map<String, List<String>> map = new HashMap();
+        
+        for (String str : strs) {
+            char[] array = str.toCharArray();
+            Arrays.sort(array);
+            String key = new String(array);
+            List<String> list = map.getOrDefault(key, new ArrayList());
+            list.add(str);
+            map.put(key, list);
         }
-
-        return new ArrayList<>(group.values());
+        
+        return new ArrayList(map.values());
     }
 
     public static void main(String[] args) {
