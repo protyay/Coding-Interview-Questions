@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
-
+// SDE problem
 public class InsertDelGetRand_01_LC380 {
     /** Initialize your data structure here. */
     private final Map<Integer, Integer> valIdxMap;
