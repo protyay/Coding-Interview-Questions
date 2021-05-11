@@ -62,34 +62,38 @@ public class CanPlaceFlowers_LC605 {
         System.out.println("Ans =" + ans);
     }
 
-    public boolean canPlaceFlowers_Greedy(int[] flowerbed, int n) {
+    public boolean canPlaceFlowers_Greedy(int[] bed, int n) {
 
-        int validBeds = 0;
-        for (int i = 0; i < flowerbed.length; i++) {
+        if (n == 0)
+            return true;
+        int count = 0;
+        for (int i = 0; i < bed.length; i++) {
+            if (bed[i] == 1)
+                continue;
             if (i == 0) {
-                // When we have a single flowerbed
-                if (i == flowerbed.length - 1) {
-                    if (flowerbed[i] == 0) {
-                        ++validBeds;
-                    }
-                } else {
-                    if (flowerbed[i] == 1 || flowerbed[i + 1] == 1)
-                        continue;
-                    flowerbed[i] = 1;
-                    validBeds++;
+                if (i + 1 < bed.length && bed[i + 1] == 0) {
+                    ++count;
+                    bed[i] = 1;
                 }
-            } else if (i == flowerbed.length - 1) {
-                if (flowerbed[i] == 1 || flowerbed[i - 1] == 1)
-                    continue;
-                flowerbed[i] = 1;
-                validBeds++;
-            } else {
-                if (flowerbed[i] == 1 || flowerbed[i - 1] == 1 || flowerbed[i + 1] == 1)
-                    continue;
-                flowerbed[i] = 1;
-                validBeds++;
             }
+            if (i == bed.length - 1) {
+                if (i - 1 > 0 && bed[i - 1] == 0) {
+                    ++count;
+                    bed[i] = 1;
+                }
+            }
+            if (i > 0 && i < bed.length - 1 && bed[i - 1] == 0 && bed[i + 1] == 0) {
+                ++count;
+                bed[i] = 1;
+            }
+            // handle for 1 bed
+            if (i == 0 && i == bed.length - 1) {
+                if (bed[i] == 0)
+                    return true;
+            }
+            if (count >= n)
+                return true;
         }
-        return validBeds >= n;
+        return false;
     }
 }
