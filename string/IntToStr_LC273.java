@@ -32,7 +32,6 @@ public class IntToStr_LC273 {
             num %= THOUSAND;
         }
         res.append(decodeHundred(num));
-
         return res.toString().trim();
     }
 
@@ -42,7 +41,6 @@ public class IntToStr_LC273 {
         if (this.mapB.containsKey(value))
             return " " + this.mapB.get(value);
         return decodeHundred(value);
-
     }
 
     private String decodeHundred(int num) {
@@ -70,7 +68,7 @@ public class IntToStr_LC273 {
 
     public static void main(String[] args) {
         IntToStr_LC273 lc273 = new IntToStr_LC273();
-        String ans = lc273.numberToWords(4112289);
+        String ans = lc273.numberToWords(123);
         System.out.println("Ans = " + ans);
     }
 }
