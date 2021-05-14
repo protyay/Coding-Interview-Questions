@@ -6,7 +6,9 @@ public class TrappingRainWater_LC42 {
         while (l <= r) {
             if (height[l] <= height[r]) {
                 if (height[l] > lMax)
-                    lMax = height[l];
+                    lMax = height[l]; // we trap water because we know height[l] is less than lMax and 
+                    // height[l] is ALSO less than height[r]. So we atleast buildings on both sides which 
+                    // are atleast as long as height[l];
                 else
                     res += lMax - height[l];
                 l++;
@@ -23,13 +25,9 @@ public class TrappingRainWater_LC42 {
 }
 /**
  * Striver's video
- * We can also do this using suffix array and prefix array
- * And the constant space solution is extended from that very idea,
- * for each index, we do calculate the water trapped based on the lMax
- * IF AND ONLY IF height[L] <= height[R].
- * So, we know that this height is LESS THAN EQUALS to R.
- * Now, we check if the current height is better than the LEFT MAX(initially 0).
- * Then, we update the left MAX and water trapped will be zero here because
- * leftMax - leftMax = 0;
+ * The most important invariant of the problem is
+ * to understand that water is trapped only when the current height
+ * is less than BOTH of the lmax as well as rmax
+ * 
  * 
  */

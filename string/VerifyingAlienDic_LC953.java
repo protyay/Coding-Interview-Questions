@@ -3,37 +3,52 @@ import java.util.Map;
 
 public class VerifyingAlienDic_LC953 {
     // SDE problem
+    private Map<Character, Integer> weight;
+
     public boolean isAlienSorted(String[] words, String order) {
-        final Map<Character, Integer> indexMap = new HashMap<>();
-        for (int i = 0; i < order.length(); i++) {
-            indexMap.put(order.charAt(i), i);
+        if (order == null || words == null || words.length == 0)
+            return false;
+        weight = new HashMap<>();
+        // Go through the order and build the weightage of each char
+        int w = 0;
+        for (char c : order.toCharArray()) {
+            weight.put(c, w++);
         }
         for (int i = 0; i < words.length - 1; i++) {
-            if (this.compare(words[i], words[i + 1], indexMap) > 0)
+            if (lexOrder(words[i], words[i + 1]) > 0)
                 return false;
         }
         return true;
     }
 
-    public int compare(String a, String b, Map<Character, Integer> indexMap) {
-        int indexA = 0, indexB = 0;
-        while (indexA < a.length() && indexB < b.length()) {
-            int pa = indexMap.get(a.charAt(indexA));
-            int pb = indexMap.get(b.charAt(indexB));
-            if (pa > pb)
+    public int lexOrder(String a, String b) {
+        // chk // cfggk
+        // chk // chka
+        // For lex order, we check both char at the same index.
+        // Possible outcomes -
+        // A. weight[chA] == weight[chB], we go to the next index;
+        // B. weight[chA] != weight[chB], then return 0, if weight[chA] < weight[chB]
+        // else 1;
+        int i = 0, j = 0;
+        while (i < a.length() && j < b.length()) {
+            int wA = weight.get(a.charAt(i));
+            int wB = weight.get(b.charAt(i));
+            if (wA != wB && wA < wB)
+                return 0;// early exit
+            if (wA > wB)
                 return 1;
-            else if (pa < pb)
-                return -1;
-            ++indexA;
-            ++indexB;
+            ++i;
+            ++j;
         }
-        if (a.length() > b.length())
+        // If we have more chars in A to be checked than B, we return false
+        if (i != a.length())
             return 1;
         return 0;
     }
+
 }
 /**
- * Very good problem to test you really understand what lexicographic means
- * If at the first differing character, the left string has a char with less weight than the right string, 
- * it is lexicographically sorted
+ * Very good problem to test you really understand what lexicographic means If
+ * at the first differing character, the left string has a char with less weight
+ * than the right string, it is lexicographically sorted
  */
