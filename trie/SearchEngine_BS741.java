@@ -1,9 +1,9 @@
 
-class SearchEngine_BS745 {
+class SearchEngine_BS741 {
     TrieNode root;
     TrieNode nextValidNode = null;
 
-    public SearchEngine_BS745() {
+    public SearchEngine_BS741() {
         root = new TrieNode();
     }
 
@@ -22,36 +22,30 @@ class SearchEngine_BS745 {
     }
 
     public boolean exists(String word) {
-        return search(word.toCharArray(), 0, root.children);
+        return search(word, 0, root);
     }
 
-    private boolean search(char[] word, int idx, TrieNode[] node) {
+    private boolean search(String word, int idx, TrieNode node) {
+        if (node == null)
+            return false;
+        if (idx == word.length())
+            return node.endCount > 0;
+        char c = word.charAt(idx);
 
-        if (word[idx] == '.') {
-
-            for (int i = 0; i < node.length; i++) {
-                if (node[i] == null)
-                    continue;
-
-                if (idx == word.length - 1 && node[i].endCount > 0) {
+        if (c == '.') {
+            for (int i = 0; i < 26; i++) {
+                if (search(word, idx + 1, node.children[i]))
                     return true;
-                }
-                return search(word, idx + 1, node[i].children);
             }
-
         } else {
-            int charIdx = word[idx] - 'a';
-            if (node[charIdx] == null)
-                return false;
-            if (idx == word.length - 1 && node[charIdx] != null && node[charIdx].endCount > 0)
+            if (search(word, idx + 1, node.children[c - 'a']))
                 return true;
-            return search(word, idx + 1, node[charIdx].children);
         }
         return false;
     }
 
     public static void main(String[] args) {
-        SearchEngine_BS745 bs745 = new SearchEngine_BS745();
+        SearchEngine_BS741 bs745 = new SearchEngine_BS741();
         bs745.add("doc");
         bs745.add("dog");
         bs745.add("wet");

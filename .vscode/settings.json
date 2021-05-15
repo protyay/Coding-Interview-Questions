@@ -1,5 +1,6 @@
 {
         "java.project.sourcePaths": [
+                "trie",
                 "tree",
                 "string",
                 "stack_queue",
@@ -8,8 +9,9 @@
                 "linked_list",
                 "greedy",
                 "graph",
+                "dp",
                 "design",
                 "array",
-                "dp"
+                "recursion"
         ]
 }
