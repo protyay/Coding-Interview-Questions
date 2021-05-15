@@ -30,3 +30,8 @@ public class WordSearch_LC79 {
     }
 
 }
+/**
+ * The time complexity is a little tricky-
+ * TC - O(N.3^L) - N is the number of cells, L is the length of the word to be matched
+ * SC - 
+ */

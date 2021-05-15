@@ -26,5 +26,6 @@ public class ValidParentheses_LC22 {
 }
 /**
  * Try and draw the choice state.
- * 
+ * The TC for this problem is a bit tricky owing to the fact that it is
+ * the same as generating Nth catalan number
  */
