@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpiralMatrix_LC58 {
+    // SDE problem
     public List<Integer> spiralOrder(int[][] matrix) {
         // Traverse the array in layered manner
         int top = 0, left = 0, right = matrix[0].length, bottom = matrix.length;

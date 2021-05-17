@@ -25,5 +25,5 @@ public class CheckPerfectSquare_BS752 {
 }
 /*
  * Take care of overflow in binary search.
- * 
+
  */

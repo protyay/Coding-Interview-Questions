@@ -1,4 +1,5 @@
 public class TrappingRainWater_LC42 {
+    // SDE problem
     public int trap(int[] height) {
         // Solve this with the most optimal solution
         int lMax = 0, l = 0, rMax = 0, r = height.length - 1;

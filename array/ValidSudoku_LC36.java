@@ -2,6 +2,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class ValidSudoku_LC36 {
+    // SDE problem
     public boolean isValidSudoku(char[][] board) {
         Set<String> rowCache = new HashSet<>();
         Set<String> colCache = new HashSet<>();
@@ -20,3 +21,8 @@ public class ValidSudoku_LC36 {
         return true;
     }
 }
+/**
+ * Most important part of the problem is to understand the formulae for calculating
+ * index of 3*3 box.
+ * That's the most important takeaway
+ */

@@ -1,4 +1,5 @@
 public class FindFirstNLast_LC34 {
+  // SDE problem
   public int[] searchRange(int[] nums, int target) {
     int leftMost = searchRange(nums, target, true);
     int rightMost = searchRange(nums, target, false);
