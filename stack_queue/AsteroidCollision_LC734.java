@@ -1,3 +1,6 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+
 public class AsteroidCollision_LC734 {
     /**
      * This problem also appears as Space Battle in Binary Search

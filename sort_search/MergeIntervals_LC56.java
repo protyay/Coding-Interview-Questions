@@ -1,26 +1,36 @@
 import java.util.Arrays;
 import java.util.LinkedList;
+
 /**
  * SDE problem
  */
 public class MergeIntervals_LC56 {
     public int[][] merge(int[][] intervals) {
-        // Sort the intervals in asc order based on the starting time
+        if (intervals.length == 1)
+            return intervals;
+        // We are going to sort the arrays by their start time
         Arrays.sort(intervals, (a, b) -> Integer.compare(a[0], b[0]));
-        LinkedList<int[]> list = new LinkedList<>();
-        for (int i = 0; i < intervals.length; i++) {
-            if (list.isEmpty() || list.getLast()[1] < intervals[i][0])
-                list.add(intervals[i]);
+
+        LinkedList<int[]> merged = new LinkedList<>();
+        for (int[] interval : intervals) {
+            if (merged.isEmpty())
+                merged.addLast(interval);
             else {
-                list.getLast()[1] = Math.max(list.getLast()[1], intervals[i][1]);
+                int[] last = merged.getLast();
+                if (last[1] >= interval[0]) {
+                    merged.removeLast();
+                    last[1] = Math.max(interval[1], last[1]);
+                    merged.add(last);
+                } else
+                    merged.add(interval);
             }
         }
-        return list.toArray(new int[list.size()][]);
+        return merged.toArray(new int[merged.size()][]);
     }
 }
 /**
- * Sweet problem.
- * The underlying idea is to leverage sort and check overlap by checking if there's an overlap between where the last range ends
- * and where the current range starts.
- * Also, take care of the toArray method in how it's used in 2D array scenarios
+ * Sweet problem. The underlying idea is to leverage sort and check overlap by
+ * checking if there's an overlap between where the last range ends and where
+ * the current range starts. Also, take care of the toArray method in how it's
+ * used in 2D array scenarios
  */

@@ -25,5 +25,23 @@ public class MaxSumSubarray_LC53 {
         }
         return max;
     }
+    // Same approach with better explanation
+    public int maxSubArray(int[] nums) {
+        if (nums.length == 1)
+            return nums[0];
+
+        int maxSum = Integer.MIN_VALUE;
+        int sum = 0;
+        for (int n : nums) {
+            // Remember the max at any index can be derive from
+            // 1. Sum of all prev.elements + curr element
+            // 2. Max element till prev index remains the max index here.
+            maxSum = Math.max(maxSum, sum + n);
+            // Restore the sum to zero everytime it goes negative.
+            // Because we are including sum in our max comparison
+            sum = Math.max(0, sum + n);
+        }
+        return maxSum;
+    }
 
 }

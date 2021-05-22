@@ -1,13 +1,21 @@
 public class NxtPermutation_LC31 {
+    // SDE 
+    // Repeat
     public void nextPermutation(int[] nums) {
         // 1 4 8 5
+        // 3 2 1
+        // [1,8,9,6,3]
+        // 1 3 2
         if (nums == null || nums.length == 1)
             return;
 
         int i = nums.length - 2;
+        // For the next permutation we try to find just the larger number
+
         while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
         }
+        // Find the smallest number larger than nums[i]
         if (i >= 0) {
             // there's atleast one valid index
             int k = nums.length - 1;

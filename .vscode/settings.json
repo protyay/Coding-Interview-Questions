@@ -5,6 +5,7 @@
                 "string",
                 "stack_queue",
                 "sort_search",
+                "recursion",
                 "math",
                 "linked_list",
                 "greedy",
@@ -12,6 +13,6 @@
                 "dp",
                 "design",
                 "array",
-                "recursion"
+                "bit-manipulation"
         ]
 }

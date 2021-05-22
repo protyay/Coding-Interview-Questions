@@ -18,6 +18,6 @@ public class SelectionSort {
 }
 /**
  * Runtime of the algorithm is O(N^2)
- * We select the minimum in the RANGE [i..N-1] at every step
+ * We select the minimum in the RANGE [i+1..N-1] at every step and place at i
  * Stable sorting algorithm
  */

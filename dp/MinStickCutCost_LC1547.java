@@ -32,9 +32,6 @@ public class MinStickCutCost_LC1547 {
         return count == visited.length;
     }
     public static void main(String[] args) {
-        MinStickCutCost_LC1547 lc1547 = new MinStickCutCost_LC1547();
-        int[] cuts = {1,3,5,4};
-        int n = 7;
 
     }
 }

@@ -1,6 +1,6 @@
 public class Strstr_LC28 {
     // Implementation of Rabin-Karp algorithm
-    // TODO: Need to add rolling-hash function
+
     public int strStr(String haystack, String needle) {
         if (needle.isEmpty())
             return 0;
