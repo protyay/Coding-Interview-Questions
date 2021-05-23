@@ -12,7 +12,8 @@
                 "graph",
                 "dp",
                 "design",
+                "bit-manipulation",
                 "array",
-                "bit-manipulation"
+                "hashing"
         ]
 }

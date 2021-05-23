@@ -1,4 +1,6 @@
 public class RotateList_LC61 {
+    // SDE problem
+    // REPEAT
     public ListNode rotateRight(ListNode head, int k) {
         if (head == null || k == 0 || head.next == null)
             return head;

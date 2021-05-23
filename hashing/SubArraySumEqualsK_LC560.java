@@ -25,4 +25,17 @@ public class SubArraySumEqualsK_LC560 {
         }
         return count;
     }
-} 
+
+    // Cleaner approach without prefixSum array
+    public int subarraySum_withoutPrefixSumArr(int[] nums, int k) {
+        int ans = 0, sum = 0;
+        Map<Integer, Integer> prefixSum = new HashMap<>();
+        prefixSum.put(0, 1);
+        for (int num : nums) {
+            sum += num;
+            ans += prefixSum.getOrDefault(sum - k, 0);
+            prefixSum.put(sum, prefixSum.getOrDefault(sum, 0) + 1);
+        }
+        return ans;
+    }
+}
