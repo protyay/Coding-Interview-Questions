@@ -2,7 +2,7 @@ import java.util.Arrays;
 
 public class MergeSort {
     public static void main(String[] args) {
-        int[] nums = { 2, 8, 1, 4, 3, 9, 7,9 };
+        int[] nums = { 2, 8, 1, 4, 3, 9, 7,9};
 
         mergeSort(nums);
         System.out.println("Merged array =" + Arrays.toString(nums));
@@ -43,5 +43,4 @@ public class MergeSort {
  * Space complexity - O(N)
  * Time complexity - O(N LOGN) - We have N levels each, and at each level we are dividing the array in half
  * If we need K divisions, then N/2^K = 1, we keep dividing the array until we have a single element in the array
- * 
  */

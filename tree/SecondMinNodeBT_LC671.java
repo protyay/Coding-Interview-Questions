@@ -30,5 +30,4 @@ public class SecondMinNodeBT_LC671 {
 }
 /**
  * This would have been a cool problem, if let's say, we do not had to use the contains check
- * 
  */

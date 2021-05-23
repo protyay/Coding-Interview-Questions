@@ -22,6 +22,13 @@ public class Subsets_LC78 {
             temp.remove(temp.size() - 1);
         }
     }
+
+    public static void main(String[] args) {
+        int[] nums = {1,2,3};
+        Subsets_LC78 lc78 = new Subsets_LC78();
+        List<List<Integer>> ans = lc78.subsets(nums);
+        System.out.println("Ans ="+ans);
+    }
 }
 /**
  * Exponential time complexity (N*2^N)

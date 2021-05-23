@@ -1,26 +1,35 @@
 public class ReverseLL2_LC92 {
     public ListNode reverseBetween(ListNode head, int left, int right) {
-        if (head.next == null || left == right)
+        if (head == null || left == right || head.next == null)
             return head;
-        ListNode dummyHead = new ListNode(-1, head);
-        int k = 1;
-        ListNode pre = dummyHead;
-        // Remember pre - curr - next drawing
-        while (k++ < left) {
-            pre = pre.next;
+
+        ListNode reverseHead = new ListNode();
+        reverseHead.next = head;
+
+        ListNode dummyHead = reverseHead;
+        int start = 1;
+        while (start++ < left) {
+            reverseHead = reverseHead.next;
         }
-        // Temp head points to previous of
+        ListNode pre = reverseHead;
         ListNode curr = pre.next;
-        // be very cautious about how many times this while loop runs.
+        ListNode second = curr.next;
+
         while (left++ < right) {
-            ListNode tempNext = curr.next;
-            curr.next = tempNext.next;
-            tempNext.next = pre.next;
-            pre.next = tempNext;
+
+            ListNode temp = second.next;
+            second.next = pre.next;
+            pre.next = second;
+            curr.next = temp;
+            second = curr.next;
+
         }
         return dummyHead.next;
     }
 }
+
 /**
- * https://www.youtube.com/watch?v=wk8-_M-2fzI
+ * https://www.youtube.com/watch?v=wk8-_M-2fzI Keep PRE and CURR constant in
+ * each iteration. Update SECOND and NEXT pointers for BOTH PRE AND CURR
+ * 
  */
