@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class ConstructBinTreeFromPreAndIn_LC105 {
     int prePointer = 0;
-
+    // SDE // Repeat
     public TreeNode buildTree(int[] preorder, int[] inorder) {
         int N = inorder.length;
         Map<Integer, Integer> inorderIdx = new HashMap<>();
@@ -30,3 +30,8 @@ public class ConstructBinTreeFromPreAndIn_LC105 {
         return root;
     }
 }
+/**
+ * Maintain a preorder index pointer
+ * Propertly maintain off-by-one error for inorder index
+ * Maintain a map of inorder index
+ */

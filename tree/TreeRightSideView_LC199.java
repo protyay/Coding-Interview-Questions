@@ -4,28 +4,35 @@ import java.util.Deque;
 import java.util.List;
 
 public class TreeRightSideView_LC199 {
+    // SDE // Repeat
     public List<Integer> rightSideView(TreeNode root) {
         if (root == null)
             return List.of();
-        List<Integer> res = new ArrayList<>();
-        Deque<TreeNode> q = new ArrayDeque<>();
 
+        Deque<TreeNode> q = new ArrayDeque<>();
         q.addLast(root);
-        res.add(root.val);
+        List<Integer> ans = new ArrayList<>();
+        ans.add(root.val);
+
         while (!q.isEmpty()) {
-            Deque<TreeNode> nextLvl = new ArrayDeque<>();
             int size = q.size();
+            int last = -101;
+
             while (size-- > 0) {
-                TreeNode tail = q.removeFirst();
-                if (tail.left != null)
-                    nextLvl.addLast(tail.left);
-                if (tail.right != null)
-                    nextLvl.addLast(tail.right);
+                TreeNode node = q.removeFirst();
+                if (node.left != null) {
+                    q.addLast(node.left);
+                    last = node.left.val;
+                }
+                if (node.right != null) {
+                    q.addLast(node.right);
+                    last = node.right.val;
+                }
             }
-            q = nextLvl;
-            if (!nextLvl.isEmpty())
-                res.add(nextLvl.getLast().val);
+            // Pick the last element from R from all nodes at each level
+            if (!q.isEmpty())
+                ans.add(last);
         }
-        return res;
+        return ans;
     }
 }

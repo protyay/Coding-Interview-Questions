@@ -3,25 +3,29 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
 
-public class PreorderTraversal {
-    public List<Integer> preorderTraversal_itertative(TreeNode root) {
+public class PreorderTraversal_LC144 {
+    // SDE 
+    public List<Integer> preorderTraversal(TreeNode root) {
         if (root == null)
             return List.of();
-        List<Integer> result = new ArrayList<>();
+        List<Integer> ans = new ArrayList<>();
         Deque<TreeNode> stack = new ArrayDeque<>();
+        fillNodes(root, stack, ans);
 
-        stack.addFirst(root);
-        // Fill the stack with the root node
         while (!stack.isEmpty()) {
-            TreeNode curTreeNode = stack.removeFirst();
-            result.add(curTreeNode.val);
+            TreeNode node = stack.removeFirst();
+            fillNodes(node.right, stack, ans);
 
-            if (curTreeNode.right != null)
-                stack.addFirst(curTreeNode.right);
-            if (curTreeNode.left != null)
-                stack.addFirst(curTreeNode.left);
         }
-        return result;
+        return ans;
+    }
+
+    private void fillNodes(TreeNode root, Deque<TreeNode> stack, List<Integer> ans) {
+        while (root != null) {
+            ans.add(root.val);
+            stack.addFirst(root);
+            root = root.left;
+        }
     }
 
     /**

@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Deque;
 import java.util.List;
 
-public class PostorderTraversal {
+public class PostorderTraversal_LC145 {
     // Root, right, left -> Reverse of Preorder
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> nodes = new ArrayList<>();

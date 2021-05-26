@@ -1,11 +1,11 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
+import java.util.Iterator;
 
 public class ImplementStackusing2Q_LC225 {
     /** Initialize your data structure here. */
     private final Deque<Integer> qA;
     private final Deque<Integer> qB;
-    private int top = -1;
 
     public ImplementStackusing2Q_LC225() {
         // When i'm adding to to stack, I add to qA
@@ -17,7 +17,6 @@ public class ImplementStackusing2Q_LC225 {
 
     /** Push element x onto stack. */
     public void push(int x) {
-        this.top = x;
         this.qA.addLast(x);
     }
 
@@ -36,6 +35,7 @@ public class ImplementStackusing2Q_LC225 {
     }
 
     /** Get the top element. */
+    // This is actually O(1) operation because the cursor is placed at the tail of the queue.
     public int top() {
         Iterator<Integer> revIterator = qA.descendingIterator();
         return revIterator.next();

@@ -1,6 +1,7 @@
 public class DiameterOfBT_LC543 {
     int diameter = 0;
 
+    // SDE problem
     public int diameterOfBinaryTree(TreeNode root) {
         findHeight(root);
         return diameter;

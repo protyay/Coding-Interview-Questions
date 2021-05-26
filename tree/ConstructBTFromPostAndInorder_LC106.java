@@ -3,7 +3,7 @@ import java.util.Map;
 
 public class ConstructBTFromPostAndInorder_LC106 {
     int postPointer = -1;
-
+    // SDE 
     public TreeNode buildTree(int[] inorder, int[] postorder) {
         // Maintain a pointer for postorder.
         // Start iterating from the reverse of the array
@@ -34,3 +34,7 @@ public class ConstructBTFromPostAndInorder_LC106 {
         return currRoot;
     }
 }
+/**
+ * Because your post pointer decreases in a way that traverse all the right subtree nodes, first, 
+ * we'll have to accomodate that and build the R-subtree first and then the L-subtree
+ */
