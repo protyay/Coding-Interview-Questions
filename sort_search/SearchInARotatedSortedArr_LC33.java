@@ -1,47 +1,27 @@
 public class SearchInARotatedSortedArr_LC33 {
     // Each element is DISTINCT
     public int search(int[] nums, int target) {
-        // We have two halves of the array that are sorted
-        // When we apply BinSearch on the full array, the mid element might be in one of
-        // these halves.
-        // The next key idea is to determine the half where the target element is - In
-        // the left or right of
-        // the pivot. If the target is NOT on one half, we discard one sorted half and
-        // resume our binary search
-        // on the other half.
-        // TC - [1], [3,1],[4 5 6 7 0 1 2], [1 2 3 4 5 6]
-        // [2,5,6,0,0,1,2] - Start index must be adjusted if nums[start] == nums[end]
-        // [1 0 1 1 1] - The only edge case is where the pivot index element is equal to it's neighbouring elements
-       
-        
-        int start = 0, end = nums.length - 1;
-        // Understand that searching 1 in a sorted array = [1,1......1] is equivalent to searching 1 IN [1,1]
-        while(start < end && nums[start] == nums[end]){
-            ++start;
-        }
-        while (start <= end) {
-            int mid = start + (end - start) / 2;
+        // The array is sorted in ascending order
+        int lo = 0, hi = nums.length - 1;
+
+        while (lo <= hi) {
+            int mid = lo + (hi - lo) / 2;
             if (nums[mid] == target)
                 return mid;
 
-            // Let's assume the array is pivoted and the mid element lies on the first
-            // rotated half
-            if (nums[start] <= nums[mid]) {
-                if (target >= nums[start] && target <= nums[mid]) {
-                    end = mid - 1;
+            if (nums[lo] <= nums[mid])// Lo-Mid is sorted
+            {
+                if (target >= nums[lo] && target < nums[mid]) {
+                    hi = mid - 1;
                 } else
-                    start = mid + 1;
+                    lo = mid + 1;
+            } else if (nums[mid] <= nums[hi]) { // Mid-HI is sorted
+                if (target > nums[mid] && target <= nums[hi]) {
+                    lo = mid + 1;
+                } else
+                    hi = mid - 1;
             }
-
-            if (nums[mid] <= nums[end]) {
-                if (target >= nums[mid] && target <= nums[end])
-                    start = mid + 1;
-                else
-                    end = mid - 1;
-            }
-
         }
         return -1;
-
     }
 }

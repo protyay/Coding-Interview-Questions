@@ -4,7 +4,7 @@ public class RandomWeightPick_LC528 {
     private int[] input;
     private final Random rand;
     private final int max;
-
+    // SDE problem
     public RandomWeightPick_LC528(int[] w) {
         input = new int[w.length];
         this.rand = new Random();
