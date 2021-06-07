@@ -1,4 +1,5 @@
 public class ValidPall_LC680 {
+    //SDE
     public boolean validPalindrome(String str) {
         if (str.length() == 1)
             return true;
@@ -28,3 +29,8 @@ public class ValidPall_LC680 {
         return true;
     }
 }
+/**
+ * Why this is an important problem ? Because it builds on the simple characteristics of a pallindrome.
+ * How we can build a pallindrome by removing characters
+ * How should we explain the TC of this kind of problem
+ */
