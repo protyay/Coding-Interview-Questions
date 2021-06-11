@@ -5,40 +5,43 @@ import java.util.List;
 public class FourSum_LC18 {
     // SDE problem
     public List<List<Integer>> fourSum(int[] nums, int target) {
-        List<List<Integer>> res = new ArrayList<>();
-
-        if (nums.length < 4)
-            return res;
+        List<List<Integer>> ans = new ArrayList<>();
+        int N = nums.length;
+        if (N < 4)
+            return ans;
 
         Arrays.sort(nums);
-        int N = nums.length;
-
-        for (int i = 0; i < nums.length - 3; i++) {
-            for (int j = i + 1; j < nums.length - 2; j++) {
-                int sum = nums[i] + nums[j];
-                int lo = j + 1, hi = N - 1;
-                while (lo < hi) {
-                    int total = sum + nums[lo] + nums[hi];
-
+        for (int i = 0; i < N - 3;) {
+            for (int j = i + 1; j < N - 2;) {
+                int s = j + 1, e = N - 1;
+                while (s < e) {
+                    int total = nums[i] + nums[j] + nums[s] + nums[e];
                     if (total == target) {
-                        List<Integer> quad = List.of(nums[i], nums[j], nums[lo], nums[hi]);
-                        while (lo < hi && nums[lo] == quad.get(2))
-                            lo++;
-                        while (lo < hi && nums[hi] == quad.get(3))
-                            hi--;
-
-                        res.add(quad);
+                        List<Integer> res = List.of(nums[i], nums[j], nums[s], nums[e]);
+                        ++s;
+                        --e;
+                        while (s < e && nums[s] == nums[s - 1])
+                            s++;
+                        while (s < e && nums[e] == nums[e + 1])
+                            e--;
+                        ans.add(res);
                     } else if (total < target)
-                        lo++;
+                        s++;
                     else
-                        hi--;
+                        e--;
                 }
-                while (j + 1 < nums.length - 2 && nums[j + 1] == nums[j])
+                j++;
+                while (j < N - 2 && nums[j - 1] == nums[j])
                     j++;
             }
-            while (i + 1 < nums.length - 3 && nums[i + 1] == nums[i])
+            i++;
+            while (i < N - 3 && nums[i - 1] == nums[i])
                 i++;
         }
-        return res;
+        return ans;
     }
 }
+/**
+ * This problem is very important owing to the fact that it focuses on 
+ * pointer manipulation in sorted arrays. 
+ */

@@ -22,12 +22,6 @@ public class CoinChange_LC322 {
 }
 class CoinChange_TopDown {
     private Integer[] dp;
-    public int coinChange(int[] coins, int amount){
-        dp = new Integer[amount + 1];
-        return dfs(coins, amount);
-    }
-    private int dfs(int[] coins, int remain){
-        if(remain == 0) return 0;
-        
-    }
+    
+    
 }
