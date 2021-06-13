@@ -21,7 +21,7 @@ public class LongestValidParen_LC32 {
     }
 }
 
-class StackSolution {
+class LinearTimeSolution {
     public int longestValidParentheses(String s) {
         if (s == null || s.isBlank())
             return 0;

@@ -1,7 +1,6 @@
 import java.util.HashMap;
 import java.util.Map;
 
-//SDE Repeat
 public class LLCloneRandPointer_LC138 {
     // Space complexity of O(N)
     // We need the visitedMap due to the presence of random pointers
@@ -109,3 +108,15 @@ class LLCloneWithConstantSpace {
         }
     }
 }
+/**
+ * The constant space solution is an INCREDIBLE one
+ * The idea of weaving nodes in between to restore the random pointer is terrific.
+ * 
+ * Also, important to NOTE is the fact that if we are trying to modify pointers. It makes sense to keep old nodes weaves somehow
+ * and later remove it.
+ * This is a pattern. 
+ * Weave OLD and NEW nodes consecutively.
+ * Iterate twice for deep-copy operations.
+ * 
+ * The third time is to remove the un-necessary nodes out of the linked list
+ */
