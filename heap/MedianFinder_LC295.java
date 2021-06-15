@@ -1,52 +1,44 @@
 import java.util.*;
 
 public class MedianFinder_LC295 {
-    Queue<Integer> left = null;
-    Queue<Integer> right = null;
-    int sizeDiff = 0;
-
     /** initialize your data structure here. */
+    Queue<Integer> minHeap;
+    Queue<Integer> maxHeap;
+
     public MedianFinder_LC295() {
-        left = new PriorityQueue<>(Collections.reverseOrder());
-        right = new PriorityQueue<>();
+        minHeap = new PriorityQueue<>();
+        maxHeap = new PriorityQueue<>(Comparator.reverseOrder());
     }
 
-    /**
-     * Adding a num entails maintaining some representation invariants A.
-     * Left(max-heap) would contain ONE extra element, if num of elements seen so
-     * far is odd. B. All elements in the left will be <= Elements in the right
-     */
     public void addNum(int num) {
-        if (left.isEmpty())
-            left.add(num);
-        else {
-            // The current ele is HIGHER than the current highest element, we send it to the
-            // LARGER half or MIN-HEAP
-            if (num > left.peek())
-                right.add(num);
-            else
-                left.add(num);
-        }
-        balanceHeap();
+        maxHeap.add(num);
+        rebalance();
     }
 
     public double findMedian() {
-        double median = 0.0;
-        if (left.size() > right.size())
-            median = left.peek().doubleValue();
-        else if (right.size() > left.size())
-            median = right.peek().doubleValue();
-        else
-            median = (right.peek() + left.peek()) * 0.5;
+        int currSize = minHeap.size() + maxHeap.size();
+        if (currSize == 1)
+            return maxHeap.peek() * 1.00;
 
-        return median;
+        if (currSize % 2 == 1)
+        return maxHeap.peek() * 1.0;
+        return (maxHeap.peek() + minHeap.peek()) / 2.0;
     }
 
-    private void balanceHeap() {
-        if (left.size() > right.size() + 1) {
-            right.add(left.remove());
-        } else if (right.size() > left.size() + 1) {
-            left.add(right.remove());
+    // The rebalance is very important.
+    // This method restores two invariants at each insert operation
+    // Divide the stream data into two equal(almost) halves
+    // The highest element in the maxHeap should be <= the lowest element in the
+    // minHeap
+    // If either of the invariant is not hold, then rebalance
+
+    private void rebalance() {
+        while (maxHeap.size() - minHeap.size() > 1)
+            minHeap.add(maxHeap.remove());
+
+        while (!maxHeap.isEmpty() && !minHeap.isEmpty() && maxHeap.peek() > minHeap.peek()) {
+            minHeap.add(maxHeap.remove());
+            maxHeap.add(minHeap.remove());
         }
     }
 
@@ -60,3 +52,7 @@ public class MedianFinder_LC295 {
     }
 
 }
+/**
+ * Always try with example to understand the scenario
+ * 
+ */
