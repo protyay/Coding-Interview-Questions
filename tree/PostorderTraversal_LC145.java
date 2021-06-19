@@ -6,6 +6,7 @@ import java.util.List;
 
 public class PostorderTraversal_LC145 {
     // Root, right, left -> Reverse of Preorder
+    // SDE
     public List<Integer> postorderTraversal(TreeNode root) {
         List<Integer> nodes = new ArrayList<>();
         Deque<TreeNode> stack = new ArrayDeque<>();

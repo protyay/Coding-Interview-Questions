@@ -2,6 +2,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class BinTreeToLinkedList_BS {
+    // SDE
     public LLNode solve(Tree root) {
         if (root == null)
             return null;

@@ -6,6 +6,7 @@ public class RotateImage_LC48 {
 
         for (int i = 0; i < r; i++) {
             for (int j = i; j < c; j++) {
+                if(i == j) continue;
                 int temp = matrix[i][j];
                 matrix[i][j] = matrix[j][i];
                 matrix[j][i] = temp;
@@ -24,3 +25,4 @@ public class RotateImage_LC48 {
         }
     }
 }
+// Keep in mind how we transpose the matrix

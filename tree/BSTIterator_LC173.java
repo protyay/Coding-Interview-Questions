@@ -2,6 +2,7 @@ import java.util.ArrayDeque;
 import java.util.Deque;
 
 public class BSTIterator_LC173 {
+    // SDE
     private final Deque<TreeNode> stack;
     private TreeNode root;
 
@@ -32,3 +33,8 @@ public class BSTIterator_LC173 {
         }
     }
 }
+/**
+ * This is the optimal approach where in we are taking up O(H) case.
+ * If we flatten the BST upfront , then that would have taken a total of O(N) space.
+ * For very large tree which is balanced, this space difference would attribute a lot
+ */

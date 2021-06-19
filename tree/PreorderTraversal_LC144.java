@@ -15,7 +15,6 @@ public class PreorderTraversal_LC144 {
         while (!stack.isEmpty()) {
             TreeNode node = stack.removeFirst();
             fillNodes(node.right, stack, ans);
-
         }
         return ans;
     }
@@ -43,3 +42,8 @@ public class PreorderTraversal_LC144 {
         walkPreOrder(root.right, nodes);
     }
 }
+/**
+ * The idea of controlled recursion is a very useful idea
+ * since we can have better space complexity of O(H) , H = Height of the tree
+ * rather than filling up all the left and right nodes at once
+ */
