@@ -35,26 +35,22 @@ public class LIS_LC300 {
     }
 
     // Bottom-up DP
-    public int lengthOfLIS_bottomup_DP(int[] nums) {
-        if (nums.length == 1)
-            return 1;
+    public int lengthOfLIS_bottomUpDP(int[] nums) {
         int[] dp = new int[nums.length];
-        // For each index, the LIS starting at that index is atleast 1
-        // dp[nums.length - 1] = 1;
         Arrays.fill(dp, 1);
-        int max = Integer.MIN_VALUE;
-        for (int i = nums.length - 2; i >= 0; i--) {
-            for (int j = i + 1; j < nums.length; j++) {
-                if (nums[j] > nums[i])
-                    dp[i] = Math.max(dp[i], 1 + dp[j]);
-                max = Math.max(dp[i], max);
+        int max = 1;
+        // dp[i] typically indicates the LIS ending at i
+        for (int i = 1; i < nums.length; i++) {
+            for (int j = 0; j < i; j++) {
+                if (nums[j] < nums[i]) {
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                    max = Math.max(max, dp[i]);
+                }
             }
         }
-        System.out.println(Arrays.toString(dp));
         return max;
     }
 }
 /**
- * One of the most important problem.
- * DP[i] stores the LIS starting at i.
+ * One of the most important problem. DP[i] stores the LIS starting at i.
  */

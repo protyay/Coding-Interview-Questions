@@ -1,38 +1,24 @@
 import java.util.*;
 
 public class MobileNumLetter_LC17 {
+    String[] map = { "abc", "def", "ghi", "jkl", "mno", "pqrs", "tuv", "wxyz" };
+    List<String> ans = new ArrayList<>();
+
     public List<String> letterCombinations(String digits) {
-        if (digits.isEmpty())
-            return List.of();
-        Map<Character, String> keyCharMap = new HashMap<>();
-
-        keyCharMap.put('2', "abc");
-        keyCharMap.put('3', "def");
-        keyCharMap.put('4', "ghi");
-        keyCharMap.put('5', "jkl");
-        keyCharMap.put('6', "mno");
-        keyCharMap.put('7', "pqrs");
-        keyCharMap.put('8', "tuv");
-        keyCharMap.put('9', "wxyz");
-
-        char[] ch = digits.toCharArray();
-        List<String> res = new ArrayList<>();
-        recurse(ch, keyCharMap, new StringBuilder(), res, 0);
-
-        return res;
+        if (digits == null || digits.isBlank())
+            return ans;
+        combine(digits, 0, "");
+        return ans;
     }
 
-    private void recurse(char[] digits, Map<Character, String> keyMap, StringBuilder tmp, List<String> rec, int index) {
-        if (tmp.length() == digits.length) {
-            rec.add(tmp.toString());
+    private void combine(String digits, int index, String temp) {
+        if (index == digits.length()) {
+            ans.add(temp);
             return;
         }
-
-        String chars = keyMap.get(digits[index]);
-        for (char c : chars.toCharArray()) {
-            tmp.append(c);
-            recurse(digits, keyMap, tmp, rec, index + 1);
-            tmp.deleteCharAt(tmp.length() - 1);
+        String str = map[digits.charAt(index) - '0' - 2];
+        for (int i = 0; i < str.length(); i++) {
+            combine(digits, index + 1, temp + str.charAt(i));
         }
     }
 

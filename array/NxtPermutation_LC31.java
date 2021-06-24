@@ -1,57 +1,42 @@
 public class NxtPermutation_LC31 {
-    // SDE 
+    // SDE
     // Repeat
     public void nextPermutation(int[] nums) {
-        // 1 4 8 5
-        // 3 2 1
-        // [1,8,9,6,3]
-        // 1 3 2
-        if (nums == null || nums.length == 1)
+        if (nums.length == 1)
             return;
 
-        int i = nums.length - 2;
-        // For the next permutation we try to find just the larger number
-
-        while (i >= 0 && nums[i] >= nums[i + 1]) {
-            i--;
+        // Find the decreasing point
+        int right = nums.length - 2; // 2 3
+        while (right >= 0 && nums[right] >= nums[right + 1]) {
+            right--;
         }
-        // Find the smallest number larger than nums[i]
-        if (i >= 0) {
-            // there's atleast one valid index
+        if (right >= 0) {
+            
+
             int k = nums.length - 1;
-            while (nums[k] <= nums[i] && k > i) {
+            while (nums[k] <= nums[right])
                 k--;
-            }
-            swap(nums, i, k);
+
+            swap(nums, k, right);
         }
-        reverse(nums, i + 1);
+        reverse(nums, right + 1, nums.length - 1);
     }
 
-    private void reverse(int[] nums, int start) {
-        int end = nums.length - 1;
-        while (start < end) {
-            int temp = nums[start];
-            nums[start] = nums[end];
-            nums[end] = temp;
-
-            ++start;
-            --end;
-        }
+    private void swap(int[] nums, int posA, int posB) {
+        int temp = nums[posA];
+        nums[posA] = nums[posB];
+        nums[posB] = temp;
     }
 
-    private void swap(int[] nums, int start, int end) {
-        int temp = nums[start];
-        nums[start] = nums[end];
-        nums[end] = temp;
+    private void reverse(int[] nums, int from, int to) {
+        while (from < to) {
+            swap(nums, from, to);
+            from++;
+            to--;
+        }
     }
 }
 /**
- * For typical array transformation problems,
- * try and find out a pattern that's repeating. 
- * 
- * Especially a breaking point.
- * 
- * Then try to look for an invariant.
- * 
- * Code the problem
+ * To come up with the next greater permutation we need to find the decreasing
+ * element from the right. This means that
  */

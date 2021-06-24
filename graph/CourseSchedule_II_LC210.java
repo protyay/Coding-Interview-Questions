@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class CourseSchedule_II_LC210 {
+    // SDE Pretty important problem 
     public int[] findOrder(int numCourses, int[][] edges) {
         // We find the in-degree of all the edges
         Map<Integer, List<Integer>> edgeMap = new HashMap<>();
@@ -47,12 +48,6 @@ public class CourseSchedule_II_LC210 {
     }
 }
 /**
- * The common mistakes in graph problems is NOT handling the edgeMap fetch
- * scenario wherein a vertex might have no OUTGOING edges. 
- * For returning
- * topological sort, we would start adding the edge with no dependency from the
- * last of the array.
+ * Build an adjacency list for more compact operations and edge case handling
  * 
- * We add to the last of the array because NO course is DEPENDENT on this course.
- * Order is very important. If the prerequisite attempt is EMPTY, then 
  */
