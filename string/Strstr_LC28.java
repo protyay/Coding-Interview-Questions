@@ -1,33 +1,63 @@
 public class Strstr_LC28 {
-    // Implementation of Rabin-Karp algorithm
+    private int[] lps;
+    private String pattern;
 
-    public int strStr(String haystack, String needle) {
-        if (needle.isEmpty())
+    // KMP Algorithm
+    // SDE
+    public int strStr(String text, String pattern) {
+        if (pattern == null || pattern.isBlank())
             return 0;
-        if (haystack.isEmpty())
-            return needle.isEmpty() ? 0 : -1;
-        int patternHash = calcRKHash(needle);
-        int pLen = needle.length();
-        for (int i = 0; i <= haystack.length() - pLen; i++) {
-            String s = haystack.substring(i, i + pLen);
-            int sHash = calcRKHash(s);
-            boolean isFound = sHash == patternHash && s.equals(needle);
-            if (isFound)
-                return i;
+        this.pattern = pattern;
+        buildLPS(pattern);
+        return search(text);
+    }
+
+    public int search(String text) {
+        int m = pattern.length();
+        int n = text.length();
+        int i = 0, j = 0;// i and j will iterate through the text and pattern respectively
+        char[] ch = text.toCharArray();
+        char[] pat = this.pattern.toCharArray();
+
+        while (i < n) {
+            if (ch[i] == pat[j]) {
+                i++;
+                j++;
+            } else {
+                if (j > 0)
+                    j = lps[j - 1];
+                else
+                    i++;
+            }
+            if (j == m)
+                return i - j;
         }
+
         return -1;
     }
 
-    private int calcRKHash(String input) {
-        // String consists of only lowercase characters. hence p=31
-        int p = 31;
-        int m = (int) Math.pow(10, 5);
-        char[] ch = input.toCharArray();
-        int hash = 0;
-        for (int i = 0; i < ch.length; i++) {
-            int code = ch[i] - 'a' + 1;
-            hash += (int) Math.pow(p, ch.length - i - 1) * code;
+    public int[] buildLPS(String pattern) {
+        int m = pattern.length();
+        this.lps = new int[m];
+        int len = 0, i = 1;
+        char[] pat = pattern.toCharArray();
+
+        while (i < m) {
+            if (pat[i] == pat[len]) {
+                lps[i] = len + 1;
+                i++;
+                len++;
+            } else {
+                if (len > 0)
+                    len = lps[len - 1];
+                else {
+                    lps[i] = 0;
+                    i++;
+                }
+            }
         }
-        return hash % m;
+        // System.out.println(Arrays.toString(lps));
+        return lps;
     }
+
 }

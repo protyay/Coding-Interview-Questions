@@ -1,62 +1,69 @@
+import java.util.ArrayDeque;
+import java.util.Deque;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
+
 public class ClosestLeafNode_LC742 {
-    int ans = -1;
+    Map<TreeNode, TreeNode> parentMap = new HashMap<>();
+    TreeNode targetNode = null;
+    int K = 0;
 
     public int findClosestLeaf(TreeNode root, int k) {
         if (root == null)
             return 0;
-        dfs(root, k);
-        return ans;
-    }
+        this.K = k;
+        Set<TreeNode> visited = new HashSet<>();
+        TreeNode rootParent = root.right == null ? root : root.right;
 
-    private NodeInfo dfs(TreeNode root, int target) {
-        if (root == null)
-            return null;
-        NodeInfo l = dfs(root.left, target);
-        NodeInfo r = dfs(root.right, target);
-        if (root.val == target) {
-            // Case A - I'm the answer
-            if (l == null && r == null) {
-                ans = root.val;
-            }
-            // Case B - One of my children is NULL and the non-null children is ans
-            else if (l == null || r == null) {
-                ans = l == null ? r.leafVal : l.leafVal;
-            } else {
-                // Case C - Both my children are NOT null
-                if (l.dist < r.dist) {
-                    ans = l.leafVal;
-                } else {
-                    ans = r.leafVal;
-                }
-            }
-        } else {
-            // Case - I'm NOT the target node and I'm the lead
-            if (l == null && r == null)
-                return new NodeInfo(0, root.val);
-            else if (l == null || r == null) {
-                // grab the non-null node, increment the dist by 1 and return
-                NodeInfo nxt = l == null ? new NodeInfo(r.dist + 1, r.leafVal) : new NodeInfo(l.dist + 1, l.leafVal);
-                return nxt;
-            } else {
-                // Both are non null
-                if (l.dist < r.dist) {
-                    return new NodeInfo(l.dist + 1, l.leafVal);
-                }
-                return new NodeInfo(r.dist + 1, r.leafVal);
+        dfs(root, rootParent);// Slight modification from the k distance
+        if (targetNode == null)
+            throw new IllegalArgumentException("Invalid value of K");
+
+        Deque<TreeNode> q = new ArrayDeque<>();
+        q.addLast(targetNode);
+
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                TreeNode temp = q.removeFirst();
+
+                // If temp is the leaf node, then we return the value
+                if (temp.left == null && temp.right == null)
+                    return temp.val;
+                visited.add(temp);
+
+                if (parentMap.getOrDefault(temp, null) != null && !visited.contains(parentMap.get(temp)))
+                    q.addLast(parentMap.get(temp));
+                if (temp.left != null && !visited.contains(temp.left))
+                    q.addLast(temp.left);
+                if (temp.right != null && !visited.contains(temp.right))
+                    q.addLast(temp.right);
             }
         }
-        return null;
+        return -1;
     }
 
-}
+    private void dfs(TreeNode root, TreeNode parent) {
+        if (root == null)
+            return;
+        if (root.val == this.K)
+            targetNode = root;
 
-class NodeInfo {
-    int dist;
-    int leafVal;
+        this.parentMap.put(root, parent);
+        dfs(root.left, root);
+        dfs(root.right, root);
+    }
 
-    NodeInfo(int dist, int leafVal) {
-        this.dist = dist;
-        this.leafVal = leafVal;
+    public static void main(String[] args) {
+        String tree = "1,2,3,4,null,null,null,5,null,6";
+        SerAndDeserBT_LC297 lc297 = new SerAndDeserBT_LC297();
+        TreeNode rootNode = lc297.deserialize(tree);
+
+        ClosestLeafNode_LC742 lc742 = new ClosestLeafNode_LC742();
+        int findClosestLeaf = lc742.findClosestLeaf(rootNode, 2);
+        System.out.println("Closest leaf =" + findClosestLeaf);
     }
 
 }

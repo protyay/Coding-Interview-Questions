@@ -15,18 +15,28 @@ public class HouseRobber_LC198 {
         return Math.max(with, without);
     }
 
-    // This is Linear time complexity
-    public int rob_dp(int[] nums) {
-        int N = nums.length;
-        if (N == 1)
+    public int rob_bottomUpDPArray(int[] nums) {
+        if (nums.length == 1)
+            return nums[0];
+        int[] dp = new int[nums.length];
+        dp[0] = nums[0];
+        dp[1] = Math.max(nums[0], nums[1]);
+        for (int i = 2; i < nums.length; i++) {
+            dp[i] = Math.max(dp[i - 1], nums[i] + dp[i - 2]);
+        }
+        return dp[nums.length - 1];
+    }
+
+    public int rob_dpConstantSpace(int[] nums) {
+        if (nums.length == 1)
             return nums[0];
 
-        int[] dp = new int[N];
-        dp[0] = nums[0];
-        dp[1] = Math.max(dp[0], nums[1]);
-        for (int i = 2; i < N; i++) {
-            dp[i] = Math.max(dp[i - 2] + nums[i], dp[i - 1]);
+        int jump = nums[0], prev = Math.max(nums[0], nums[1]), max = 0;
+        for (int i = 2; i < nums.length; i++) {
+            max = Math.max(prev, nums[i] + jump);
+            jump = prev;
+            prev = max;
         }
-        return dp[N - 1];
+        return Math.max(prev, max);
     }
 }

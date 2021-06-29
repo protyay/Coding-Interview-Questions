@@ -3,88 +3,80 @@ package bfs;
 import java.util.*;
 
 public class RottenOranges_LC994 {
-    public static void main(String[] args) {
-        int[][] grid = { { 2, 1, 1 }, { 1, 1, 0 }, { 0, 1, 1 } };
-        RottenOranges_LC994 lc994 = new RottenOranges_LC994();
-        int time = lc994.orangesRotting(grid);
-        System.out.println(time);
-
-    }
-
     public int orangesRotting(int[][] grid) {
-        int minutes = 0;
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[0].length; j++) {
+
+        if (grid == null || grid.length == 0)
+            return 0;
+
+        Deque<Cell> q = new ArrayDeque<>();
+
+        int r = grid.length, c = grid[0].length;
+        boolean[][] visited = new boolean[r][c];
+        int[][] dir = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+
+        for (int i = 0; i < r; i++) {
+            for (int j = 0; j < c; j++) {
+
                 if (grid[i][j] == 2) {
-                    minutes += startRot(grid, i, j);
+                    visited[i][j] = true;
+                    q.add(new Cell(i, j));
                 }
             }
         }
-        // We re-iterate the matrix to make sure there are NO DISCONNECTED components
-        // that consists of a fresh orange.
-        // If we encounter, then we return 0, else we return the total minutes recorded
-        // to rot each orange in the previous orange
+
+        int time = 0;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
+                Cell temp = q.removeFirst();
+
+                grid[temp.x][temp.y] = 3;// very important step
+
+                for (int[] d : dir) {
+                    int dx = temp.x + d[0];
+                    int dy = temp.y + d[1];
+
+                    if (isInMatrix(grid, dx, dy) && grid[dx][dy] == 1 && !visited[dx][dy]) {
+                        visited[dx][dy] = true;// this is very important step wherein if we add a neighbour we mark it
+                        // as visited to avoid duplicate addition
+                        q.addLast(new Cell(dx, dy));
+                    }
+
+                }
+            }
+            if (q.isEmpty())
+                break;
+            ++time;
+        }
+        if (!isAllRotten(grid))
+            return -1;
+        return time;
+    }
+
+    private boolean isInMatrix(int[][] grid, int x, int y) {
+        if (x < 0 || x >= grid.length || y < 0 || y >= grid[0].length)
+            return false;
+        return true;
+    }
+
+    private boolean isAllRotten(int[][] grid) {
+
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 if (grid[i][j] == 1)
-                    return 0;
+                    return false;
             }
         }
-        return minutes;
+        return true;
     }
-
-    private int startRot(int[][] grid, int currR, int currC) {
-        int row = grid.length;
-        int col = grid[0].length;
-        int min = 0;
-        Deque<OrangeInfo> oranges = new ArrayDeque<>();
-        oranges.addLast(new OrangeInfo(currR, currC));
-        grid[currR][currC] = 3;
-        while (!oranges.isEmpty()) {
-            // We traverse the connected graph in BFS manner
-
-            int size = oranges.size();
-            while (size-- > 0) {
-
-                OrangeInfo cell = oranges.removeFirst();
-                int r = cell.r;
-                int c = cell.c;
-
-                // Add all valid neighbour oranges, if
-                // a. They are NOT Rotten itself (Avoid visiting duplicate nodes)
-                // b. They are fresh
-                // c. They are NOT empty cells
-                if (r + 1 < row && grid[r + 1][c] != 3 && grid[r + 1][c] != 0) {
-                    oranges.addLast(new OrangeInfo(r + 1, c));
-                    grid[r + 1][c] = 3;
-                }
-                if (c + 1 < col && grid[r][c + 1] != 3 && grid[r][c + 1] != 0) {
-                    oranges.addLast(new OrangeInfo(r, c + 1));
-                    grid[r][c + 1] = 3;
-                }
-                if (c - 1 >= 0 && grid[r][c - 1] != 3 && grid[r][c - 1] != 0) {
-                    oranges.addLast(new OrangeInfo(r, c - 1));
-                    grid[r][c - 1] = 3;
-                }
-                if (r - 1 >= 0 && grid[r - 1][c] != 3 && grid[r - 1][c] != 0) {
-                    oranges.addLast(new OrangeInfo(r - 1, c));
-                    grid[r - 1][c] = 3;
-                }
-            }
-            if (!oranges.isEmpty())
-                ++min;
-        }
-        return min;
-    }
-
 }
 
-class OrangeInfo {
-    public int r;
-    public int c;
+class Cell {
+    int x;
+    int y;
 
-    public OrangeInfo(final int r, final int c) {
-        this.r = r;
-        this.c = c;
+    Cell(int x, int y) {
+        this.x = x;
+        this.y = y;
     }
 }
