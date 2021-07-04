@@ -62,12 +62,16 @@ class SecondApproach {
             // pIdx is the index at which we partition nums2
             int pIdx = leftReqd - mid;
 
-            int l1 = mid == 0 ? Integer.MIN_VALUE : nums1[mid - 1];
-            int l2 = pIdx == 0 ? Integer.MIN_VALUE : nums2[pIdx - 1];
+            int l1 = mid == 0 ? Integer.MIN_VALUE : nums1[mid - 1];// We have NOTHING to take from nums1
+            int l2 = pIdx == 0 ? Integer.MIN_VALUE : nums2[pIdx - 1]; // We don't need any value from nums2
+            // to satisfy the requirements for the size of the left array.
 
-            int r1 = mid == N1 ? Integer.MAX_VALUE : nums1[mid];
-            int r2 = pIdx == N2 ? Integer.MAX_VALUE : nums2[pIdx];
-
+            int r1 = mid == N1 ? Integer.MAX_VALUE : nums1[mid];// We have NOTHING to take from nums1 into
+            // the right partition.
+            int r2 = pIdx == N2 ? Integer.MAX_VALUE : nums2[pIdx]; // We have nothing to take from nums1 into
+            // the right partition
+            
+            // We need to determine whether we have taken more from nums1 or from nums2;
             if (l1 <= r2 && l2 <= r1) {
 
                 if (isEven) {

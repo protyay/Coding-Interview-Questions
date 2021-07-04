@@ -1,13 +1,18 @@
 import java.util.Map;
+import java.util.NavigableMap;
+import java.util.TreeMap;
 
 public class IntToStr_LC273 {
     String[] mapA = { "Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Eleven",
             "Twelve", "Thirteen", "Fourteen", "Fifteen", "Sixteen", "Seventeen", "Eighteen", "Nineteen" };
 
-    Map<Integer, String> mapB = Map.of(20, "Twenty", 30, "Thirty", 40, "Fourty", 50, "Fifty", 60, "Sixty", 70,
+    Map<Integer, String> mapB = Map.of(20, "Twenty", 30, "Thirty", 40, "Forty", 50, "Fifty", 60, "Sixty", 70,
             "Seventy", 80, "Eighty", 90, "Ninety");
+    NavigableMap<Integer, String> navigableMap = new TreeMap<>();
 
     public String numberToWords(int num) {
+        navigableMap.putAll(mapB);
+
         final int BILLION = 1_000_000_000;
         final int MILLION = 1_000_000;
         final int THOUSAND = 1_000;
@@ -51,6 +56,11 @@ public class IntToStr_LC273 {
             res.append(" Hundred");
             num %= HUNDRED;
         }
+        return res.append(decodeTen(num)).toString();
+    }
+
+    private String decodeTen(int num) {
+        StringBuilder res = new StringBuilder();
         while (num > 0) {
             if (num < 20) {
                 res.append(" " + this.mapA[num]);
@@ -59,7 +69,7 @@ public class IntToStr_LC273 {
                 res.append(" " + this.mapB.get(num));
                 break;
             } else {
-                res.append(decodeHundred(num - (num % 10)));
+                res.append(" " + navigableMap.floorEntry(num).getValue());
                 num %= 10;
             }
         }
