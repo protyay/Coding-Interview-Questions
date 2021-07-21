@@ -4,25 +4,31 @@ public class MinDelForUniqueCharFreq_LC1647 {
     // SDE
     public int minDeletions(String s) {
         int[] freq = new int[26];
-        for (char c : s.toCharArray()) {
-            freq[c - 'a']++;
+        for (char ch : s.toCharArray()) {
+            freq[ch - 'a']++;
         }
         Arrays.sort(freq);
-
-        int del = 0, cutOff = freq[25] - 1;
+        int del = 0;
         for (int i = 24; i >= 0; i--) {
             if (freq[i] == 0)
                 continue;
-            if (freq[i] > cutOff) {
-                del += freq[i] - cutOff;
+
+            if (freq[i] == freq[i + 1]) {
+                freq[i]--;
+                ++del;
+            } else {
+                while (freq[i] > 0 && freq[i] >= freq[i + 1]) {
+                    freq[i]--;
+                    del++;
+                }
             }
-            cutOff = Math.max(0, Math.min(freq[i] - 1, cutOff - 1));
         }
         return del;
     }
 }
 /**
- * Greedy problem because we keep the character with max freq. 
- * We keep reducing the number till we encounter zero.
- * 
+ * Once you sort the array, you start from the 2nd last index. Check if the freq
+ * is equal to the next freq. Decrease 1. If the current freq is greater than
+ * the next freq, we'll keep reducing the number until it is less than it's
+ * right neighbour or less than zero, whichever is earlier. Return del count
  */
