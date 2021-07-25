@@ -40,3 +40,27 @@ class ArrayEntry {
         this.val = val;
     }
 }
+
+class BucketSortApproach {
+    public int[] topKFrequent(int[] nums, int k) {
+        Map<Integer, Integer> freqArr = new HashMap<>();
+        LinkedList<Integer>[] freq = new LinkedList[nums.length + 1];
+        int[] res = new int[k];
+        for (int n : nums)
+            freqArr.put(n, freqArr.getOrDefault(n, 0) + 1);
+
+        for (int i = 0; i < freq.length; i++) {
+            freq[i] = new LinkedList<>();
+        }
+        for (int i : freqArr.keySet()) {
+            freq[freqArr.get(i)].addLast(i);// Horror!
+        }
+        for (int i = freq.length - 1; i >= 0; i--) {
+            while (!freq[i].isEmpty() && k > 0) {
+                res[k - 1] = freq[i].removeLast();
+                k--;
+            }
+        }
+        return res;
+    }
+}
