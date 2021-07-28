@@ -1,45 +1,41 @@
 public class MinWindowSubstring_LC76 {
     public String minWindow(String s, String t) {
-        if (s == null || s.isEmpty() || t == null || t.isEmpty())
-            return "";
-
-        int[] freqS = new int[128];
-        int[] freqT = new int[128];
-
-        for (int i = 0; i < t.length(); i++) {
-            freqT[t.charAt(i) - 'A']++;
+        int[] ss = new int[256];
+        int[] tt = new int[256];
+        for (char c : t.toCharArray()) {
+            tt[c]++;
         }
-        int seenChar = 0;
+        int seen = 0, len = Integer.MAX_VALUE;
         char[] ch = s.toCharArray();
-        int l = 0, startIdx = 0, endIdx = 0, maxLen = Integer.MAX_VALUE;
-
-        for (int i = 0; i < ch.length; i++) {
-
-            if (freqT[ch[i] - 'A'] > 0) {
-
-                freqS[ch[i] - 'A']++;
-                if (freqS[ch[i] - 'A'] <= freqT[ch[i] - 'A'])
-                    ++seenChar;
+        int start = 0, end = 0;
+        // We need to figure out if a character is present in t and also the
+        // corresponding
+        // count of it.
+        for (int l = 0, r = 0; r < s.length(); r++) {
+            char curr = ch[r];
+            if (ss[curr] < tt[curr]) {
+                ++seen;
             }
-            while (seenChar == t.length() && l <= i) {
-                if (freqT[ch[l] - 'A'] > 0) {
-                    if (freqS[ch[l] - 'A'] == freqT[ch[l] - 'A']) {
-                        --seenChar;
-                    }
-                    freqS[ch[l] - 'A']--;
+            ss[curr]++;
+            while (seen == t.length()) {
+                // We contract the window
+                if (r - l + 1 < len) {
+                    start = l;
+                    end = r;
+                    len = r - l + 1;
                 }
-                if (i - l + 1 < maxLen) {
-                    startIdx = l;
-                    endIdx = i;
-                    maxLen = i - l + 1;
+                if (ss[ch[l]] - 1 < tt[ch[l]]) {
+                    --seen;
                 }
-                ++l;
+                ss[ch[l]]--;
+                l++;
             }
         }
-        if (maxLen == Integer.MAX_VALUE)
+        if (len == Integer.MAX_VALUE)
             return "";
-        String res = s.substring(startIdx, endIdx + 1);
-        return res;
+
+        String ans = s.substring(start, end + 1);
+        return ans;
     }
 
     public static void main(String[] args) {
