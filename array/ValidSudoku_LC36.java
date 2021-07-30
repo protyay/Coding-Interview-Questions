@@ -13,7 +13,7 @@ public class ValidSudoku_LC36 {
             }
         }
             return true;
-    }l̥
+    }
 }
 /**
  * Most important part of the problem is to understand the formulae for

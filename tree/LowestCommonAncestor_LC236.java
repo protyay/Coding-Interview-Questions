@@ -1,9 +1,7 @@
 import java.util.ArrayDeque;
 import java.util.Deque;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 public class LowestCommonAncestor_LC236 {
     TreeNode ans = null;
@@ -34,30 +32,40 @@ public class LowestCommonAncestor_LC236 {
     }
 
     public TreeNode lowestCommonAncestor_iterative(TreeNode root, TreeNode p, TreeNode q) {
-        Map<TreeNode, TreeNode> parent = new HashMap<>();
+        if (root == null)
+            return null;
         Deque<TreeNode> stack = new ArrayDeque<>();
-        parent.put(root, null);
-        stack.push(root);
+        stack.addFirst(root);
+        Map<TreeNode, Integer> lca = new HashMap<>();
+        int k = 2;
+        while (!stack.isEmpty()) {
+            TreeNode top = stack.getFirst();
+            if (top.left != null && !lca.containsKey(top.left))
+                stack.addFirst(top.left);
+            else if (top.right != null && !lca.containsKey(top.right))
+                stack.addFirst(top.right);
+            else {
+                stack.removeFirst();
+                int leftCount = lca.getOrDefault(top.left, 0);
+                int rightCount = lca.getOrDefault(top.right, 0);
+                int self = p.val == top.val || q.val == top.val ? 1 : 0;
 
-        while (!parent.containsKey(p) || !parent.containsKey(q)) {
-            TreeNode node = stack.pop();
-            if (node.left != null) {
-                parent.put(node.left, node);
-                stack.push(node.left);
-            }
-            if (node.right != null) {
-                parent.put(node.right, node);
-                stack.push(node.right);
+                if (leftCount + rightCount + self == k)
+                    return top;
+
+                lca.put(top, self + rightCount + leftCount);
             }
         }
-        Set<TreeNode> ancestors = new HashSet<>();
-        while (p != null) {
-            ancestors.add(p);
-            p = parent.get(p);
-        }
-        while (!ancestors.contains(q))
-            q = parent.get(q);
-        return q;
+        return null;
+    }
+
+    public static void main(String[] args) {
+        String data = "3,5,1,6,2,0,8,null,null,7,4";
+        SerAndDeserBT_LC297 lc297 = new SerAndDeserBT_LC297();
+        TreeNode root = lc297.deserialize(data);
+        LowestCommonAncestor_LC236 lc236 = new LowestCommonAncestor_LC236();
+        TreeNode lca = lc236.lowestCommonAncestor_iterative(root, root.left, root.right);
+        System.out.println("LCA NODE =" + lca.val);
     }
 }
 /**

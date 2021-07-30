@@ -1,4 +1,5 @@
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class LIS_LC300 {
     // Brute force beauty
@@ -51,6 +52,44 @@ public class LIS_LC300 {
         return max;
     }
 }
+
 /**
  * One of the most important problem. DP[i] stores the LIS starting at i.
  */
+class BinarySearchApproach {
+    public int lengthOfLIS(int[] nums) {
+        LinkedList<Integer> sub = new LinkedList<>();
+        sub.add(nums[0]);
+
+        for (int i = 1; i < nums.length; i++) {
+            int num = nums[i];
+            if (num > sub.getLast()) {
+                sub.add(num);
+            } else {
+                int j = binarySearch(sub, num);
+                sub.set(j, num);
+            }
+        }
+
+        return sub.size();
+    }
+
+    private int binarySearch(LinkedList<Integer> sub, int num) {
+        int left = 0;
+        int right = sub.size() - 1;
+
+        while (left <= right) {
+            int mid = left + (right - left) / 2;
+            if (sub.get(mid) == num) {
+                return mid;
+            }
+
+            if (sub.get(mid) < num) {
+                left = mid + 1;
+            } else {
+                right = mid - 1;
+            }
+        }
+        return left;
+    }
+}

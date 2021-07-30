@@ -3,7 +3,7 @@ public class QuickSelect {
     public int findKSmallest(int[] nums, int k) {
         if (k > nums.length)
             return -1; // Invalid scenario
-        
+        int lo = 0, hi = nums.length - 1;
         return findKSmallest(nums, lo, hi, k-1);
     }
 
