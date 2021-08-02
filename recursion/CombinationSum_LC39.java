@@ -3,37 +3,33 @@ import java.util.List;
 
 public class CombinationSum_LC39 {
     // SDE problem
+    List<List<Integer>> ans = new ArrayList<>();
+
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> res = new ArrayList<>();
-        dfs(candidates, 0, res, target, new ArrayList<Integer>());
-        return res;
+        if (candidates == null || candidates.length == 0)
+            return ans;
+
+        dfs(candidates, target, 0, new ArrayList<Integer>());
+        return ans;
     }
 
-    // Expressing your choice is the best way to solve a recursion
-    private void dfs(int[] candidates, int index, List<List<Integer>> res, int target, List<Integer> temp) {
-        if (target < 0)
+    private void dfs(int[] nums, int target, int start, List<Integer> temp) {
+        if (target == 0) {
+            ans.add(new ArrayList<>(temp));
             return;
-        if (index == candidates.length) {
-            if (target == 0) {
-                res.add(new ArrayList<>(temp));
+        }
+        for (int i = start; i < nums.length; i++) {
+            if (target - nums[i] >= 0) {
+                temp.add(nums[i]);
+                dfs(nums, target - nums[i], i, temp);
+                temp.remove(temp.size() - 1);
             }
-            return;
         }
-        // If we can choose the element
-        if (candidates[index] <= target) {
-            temp.add(candidates[index]);
-            dfs(candidates, index, res, target - candidates[index], temp);
-            temp.remove(temp.size() - 1);
-        }
-        // Don't choose the element
-        dfs(candidates, index + 1, res, target, temp);
     }
 }
 /**
- * Time complexity - O(2^N) * k - two possible ways for each array element and
- * for the leaf nodes, we would have to iterate through all the elements to
- * build the ans. That's another K factor, k being the average length of each of
- * the combination
+ * Time complexity - O(N^T/M + 1) - Total num of nodes in a tree of height T/M - T is target , M = 1. Can also 
+ * be written as O(2^T)
  * 
  * SC - If we do not consider the auxiliary space for recursion, we would end up
  * with O(K) space O(K) * C , C being the total number of combinations.

@@ -17,7 +17,7 @@ public class Dijkstra_GFG {
         Arrays.fill(distCost, Integer.MAX_VALUE);
         boolean[] visited = new boolean[V];
 
-        // We relax each edge repeatedly , if the
+        // We relax each edge repeatedly
         Queue<Edge> pq = new PriorityQueue<>((a, b) -> Integer.compare(a.cost, b.cost));
         pq.add(Edge.of(S, 0));
         distCost[S] = 0;
