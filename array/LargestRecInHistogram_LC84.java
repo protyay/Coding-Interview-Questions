@@ -1,58 +1,28 @@
-import java.util.ArrayDeque;
-import java.util.Deque;
-
 public class LargestRecInHistogram_LC84 {
     // SDE
-    public int largestRectangleArea_bruteForce(int[] heights) {
-        int maxArea = heights[0];
+    public int largestRectangleArea(int[] heights) {
+        if (heights == null || heights.length == 0)
+            return 0;
         if (heights.length == 1)
-            return maxArea;
+            return heights[0];
+        int N = heights.length;
 
-        for (int i = 1; i < heights.length; i++) {
-            int h = heights[i];
-            maxArea = Math.max(h, maxArea);
-            for (int j = i - 1; j >= 0; j--) {
+        int[] stack = new int[N + 1];
+        stack[0] = -1;// idx = 0 represents stack empty condition
 
-                h = Math.min(h, heights[j]);
-                int w = i - j + 1;
+        int idx = 0, res = 0;
 
-                maxArea = Math.max(maxArea, h * w);
+        for (int i = 0; i < N; i++) {
+            int curr = heights[i];
+            while (idx > 0 && heights[stack[idx]] > curr) {
+                res = Math.max(res, heights[stack[idx--]] * (i - 1 - stack[idx]));
             }
+            stack[++idx] = i;
         }
-        return maxArea;
-    }
-
-    public int largestRectangleArea(int[] h) {
-        Deque<ArrayEntry> stack = new ArrayDeque<>();
-        int maxArea = 0;
-
-        for (int i = 0; i < h.length; i++) {
-            // Monotonic stack behavior
-            int index = i;
-            while (!stack.isEmpty() && stack.getFirst().val > h[i]) {
-                int area = stack.getFirst().val * (i - stack.getFirst().index);
-                maxArea = Math.max(maxArea, area);
-                index = stack.removeFirst().index;
-            }
-            stack.addFirst(new ArrayEntry(index, h[i]));
+        while (idx > 0) {
+            res = Math.max(res, heights[stack[idx--]] * (N - 1 - stack[idx]));
         }
-        // Process the rest of the elements in the stack
-        while (!stack.isEmpty()) {
-            int area = stack.getFirst().val * (h.length - stack.getFirst().index);
-            maxArea = Math.max(maxArea, area);
-            stack.removeFirst();
-        }
-        return maxArea;
-    }
-
-    class ArrayEntry {
-        int val;
-        int index;
-
-        ArrayEntry(int i, int v) {
-            this.index = i;
-            this.val = v;
-        }
+        return res;
     }
 
     public static void main(String[] args) {

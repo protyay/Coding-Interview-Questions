@@ -38,4 +38,10 @@ public class ReversePairs_LC493 {
         }
         Arrays.sort(nums, lo, hi + 1);
     }
+
+    public static void main(String[] args) {
+        int[] nums = {1,3,2,3,1};
+        int ans = new ReversePairs_LC493().reversePairs(nums);
+        System.out.println("Pair ="+ ans);
+    }
 }

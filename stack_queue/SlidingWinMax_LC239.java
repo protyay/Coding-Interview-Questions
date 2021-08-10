@@ -10,7 +10,7 @@ public class SlidingWinMax_LC239 {
 
         Deque<Integer> deq = new ArrayDeque<>();
         int N = nums.length;
-        List<Integer> res = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();  
 
         for (int l = 0, r = 0; r < N; r++) {
             while (!deq.isEmpty() && nums[deq.getLast()] < nums[r]) {

@@ -1,54 +1,33 @@
 public class LongestValidParen_LC32 {
     // SDE problem
     public int longestValidParentheses(String s) {
-        if (s == null || s.isBlank())
-            return 0;
-        s = " " + s;
-        int[] dp = new int[s.length()];
-        char[] c = s.toCharArray();
+        // we go from left to right
+        int open = 0, close = 0;
         int maxLen = 0;
 
-        for (int i = 1; i < c.length; i++) {
-            if (c[i] == ')') {
-                if (c[i - 1] == '(')
-                    dp[i] = dp[i - 2] + 2;
-                else if (c[i - dp[i - 1] - 1] == '(')
-                    dp[i] = dp[i - 1] + dp[i - dp[i - 1] - 2] + 2;
-            }
-            maxLen = Math.max(dp[i], maxLen);
-        }
-        return maxLen;
-    }
-}
-
-class LinearTimeSolution {
-    public int longestValidParentheses(String s) {
-        if (s == null || s.isBlank())
-            return 0;
-        int l = 0, r = 0;
-        int maxLen = 0;
-
-        char[] ch = s.toCharArray();
-        for (int i = 0; i < ch.length; i++) {
-            if (ch[i] == '(')
-                ++l;
+        for (char c : s.toCharArray()) {
+            if (c == '(')
+                open++;
             else
-                ++r;
-            if (l == r)
-                maxLen = Math.max(maxLen, 2 * l);
-            else if (r > l)
-                l = r = 0;
+                close++;
+
+            if (open == close)
+                maxLen = Math.max(maxLen, open * 2);
+            else if (close > open)
+                open = close = 0;
         }
-        l = r = 0;
-        for (int i = ch.length - 1; i >= 0; i--) {
-            if (ch[i] == '(')
-                ++l;
+        open = close = 0;
+        for (int i = s.length() - 1; i >= 0; i--) {
+            char c = s.charAt(i);
+            if (c == '(')
+                open++;
             else
-                ++r;
-            if (l == r)
-                maxLen = Math.max(maxLen, 2 * l);
-            else if (l > r)
-                l = r = 0;
+                close++;
+
+            if (open == close)
+                maxLen = Math.max(maxLen, open * 2);
+            else if (open > close)
+                open = close = 0;
         }
         return maxLen;
     }

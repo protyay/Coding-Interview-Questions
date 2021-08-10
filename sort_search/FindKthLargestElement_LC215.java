@@ -32,4 +32,16 @@ public class FindKthLargestElement_LC215 {
         nums[from] = nums[to];
         nums[to] = temp;
     }
+    public static void main(String[] args) {
+        int[] nums = {8,6,1,7,4,9};
+        FindKthLargestElement_LC215 lc215 = new FindKthLargestElement_LC215();
+        int ans = lc215.findKthLargest(nums, 2);
+        System.out.println("k-th largest ="+ans);
+    }
 }
+/**
+ * Sample example 
+ * [8,6,1,7,4,9]
+ * pivot = 9
+ * [9,6,1,7,4,8]
+ */

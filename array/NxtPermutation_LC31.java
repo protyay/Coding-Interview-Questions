@@ -2,37 +2,37 @@ public class NxtPermutation_LC31 {
     // SDE
     // Repeat
     public void nextPermutation(int[] nums) {
-        if (nums.length == 1)
-            return;
-
-        // Find the decreasing point
-        int right = nums.length - 2; // 2 3
-        while (right >= 0 && nums[right] >= nums[right + 1]) {
-            right--;
+        int l = nums.length - 2;
+        while (l >= 0 && nums[l] >= nums[l + 1]) {
+            l--;
         }
-        if (right >= 0) {
-            
-
-            int k = nums.length - 1;
-            while (nums[k] <= nums[right])
-                k--;
-
-            swap(nums, k, right);
+        int pivot = l;
+        int nextGreater = -1;
+        if (l >= 0) {
+            nextGreater = findNextGreaterNum(nums, pivot);
+            swap(nums, nextGreater, pivot);
         }
-        reverse(nums, right + 1, nums.length - 1);
+        reverse(nums, pivot + 1);
     }
 
-    private void swap(int[] nums, int posA, int posB) {
-        int temp = nums[posA];
-        nums[posA] = nums[posB];
-        nums[posB] = temp;
+    private int findNextGreaterNum(int[] nums, int fromIndex) {
+        int baseValue = nums[fromIndex];
+        int start = nums.length - 1;
+        while (nums[start] <= baseValue)
+            start--;
+        return start;
     }
 
-    private void reverse(int[] nums, int from, int to) {
+    private void swap(int[] nums, int from, int to) {
+        int temp = nums[from];
+        nums[from] = nums[to];
+        nums[to] = temp;
+    }
+
+    private void reverse(int[] nums, int from) {
+        int to = nums.length - 1;
         while (from < to) {
-            swap(nums, from, to);
-            from++;
-            to--;
+            swap(nums, from++, to--);
         }
     }
 }
