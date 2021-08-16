@@ -32,10 +32,8 @@ public class LongestConsSubSeq_LC128 {
 class UnionFind {
     private final int[] parent;
     private final int[] size;
-    private int components;
 
     UnionFind(int vertex) {
-        this.components = vertex;
         this.parent = new int[vertex];
         this.size = new int[vertex];
 
@@ -74,7 +72,6 @@ class UnionFind {
             parent[rootY] = rootX;
             size[rootY] = 0;
         }
-        this.components--;
     }
 
     public int findLargestComp() {
