@@ -3,12 +3,13 @@ import java.util.NavigableMap;
 import java.util.TreeMap;
 
 public class IntegerToRoman_LC12 {
-    public String intToRoman(int n) {
+    public String intToRoman(int num) {
         // Select the largest value smaller than the given integer
         // Add it
         // For the remainder , recursively follow the same procedure and built the
         // answer
         NavigableMap<Integer, String> roman = new TreeMap<>();
+        final StringBuilder str = new StringBuilder();
         roman.put(1, "I");
         roman.put(5, "V");
         roman.put(10, "X");
@@ -25,21 +26,13 @@ public class IntegerToRoman_LC12 {
         roman.put(400, "CD");
         roman.put(900, "CM");
 
-        String ans = buildRoman(n, new StringBuilder(), roman);
-        return ans;
-    }
+        while (num > 0) {
+            Map.Entry<Integer, String> value = roman.floorEntry(num);
 
-    private String buildRoman(int n, StringBuilder str, NavigableMap<Integer, String> mappings) {
-        if (n == 0)
-            return str.toString();
-        if (mappings.containsKey(n))
-            return str.append(mappings.get(n)).toString();
-        Map.Entry<Integer, String> pair = mappings.floorEntry(n);
-        if (pair != null) {
-            String symbol = pair.getValue();
-            str.append(symbol);
-            return buildRoman(n - pair.getKey(), str, mappings);
+            str.append(value.getValue());
+
+            num -= value.getKey();
         }
-        return null;
+        return str.toString();
     }
 }
