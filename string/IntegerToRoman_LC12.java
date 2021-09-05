@@ -4,10 +4,7 @@ import java.util.TreeMap;
 
 public class IntegerToRoman_LC12 {
     public String intToRoman(int num) {
-        // Select the largest value smaller than the given integer
-        // Add it
-        // For the remainder , recursively follow the same procedure and built the
-        // answer
+        
         NavigableMap<Integer, String> roman = new TreeMap<>();
         final StringBuilder str = new StringBuilder();
         roman.put(1, "I");
