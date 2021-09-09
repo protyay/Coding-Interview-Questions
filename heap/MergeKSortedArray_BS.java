@@ -49,28 +49,28 @@ public class MergeKSortedArray_BS {
         }
     }
 
-}
-
-/**
- * Leetcode 23
- * Solution
- */
-public ListNode mergeKLists(ListNode[] lists) {
-    // To achieve this in size K
-    ListNode result = new ListNode();
-    ListNode resultDup = result;
-    Queue<ListNode> minHeap = new PriorityQueue<>((a,b) -> Integer.compare(a.val, b.val));
-  // Iterate through K-Linked List, insert the head node of each
-  // into the Q - At most, the queue will contain K nodes, at any given time
-    for(ListNode head : lists){
-       if(head == null) continue;
-       minHeap.add(head);
+    /**
+     * Leetcode 23 Solution
+     */
+    public ListNode mergeKLists(ListNode[] lists) {
+        // To achieve this in size K
+        ListNode result = new ListNode();
+        ListNode resultDup = result;
+        Queue<ListNode> minHeap = new PriorityQueue<>((a, b) -> Integer.compare(a.val, b.val));
+        // Iterate through K-Linked List, insert the head node of each
+        // into the Q - At most, the queue will contain K nodes, at any given time
+        for (ListNode head : lists) {
+            if (head == null)
+                continue;
+            minHeap.add(head);
+        }
+        while (!minHeap.isEmpty()) {
+            ListNode currSmallest = minHeap.remove();
+            result.next = currSmallest;
+            result = result.next;
+            if (currSmallest.next != null)
+                minHeap.add(currSmallest.next);
+        }
+        return resultDup.next;
     }
-    while(!minHeap.isEmpty()){
-      ListNode currSmallest = minHeap.remove();
-      result.next = currSmallest;
-      result = result.next;
-      if(currSmallest.next != null) minHeap.add(currSmallest.next);
-    }
-  return resultDup.next;
 }

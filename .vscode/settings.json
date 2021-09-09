@@ -15,6 +15,7 @@
                 "design",
                 "bit-manipulation",
                 "array",
-                "Ninja_GuidedPath"
+                "Ninja_GuidedPath",
+                "heap"
         ]
 }
