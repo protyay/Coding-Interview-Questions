@@ -38,13 +38,11 @@ class Iterative_BTMaxPathSum {
     public int maxPathSum(TreeNode root) {
         if (root == null)
             return 0;
-        // Calc. the max path sum rooted at every subtree
-        int maxSum = Integer.MIN_VALUE;
-        Map<TreeNode, Integer> nodeSum = new HashMap<>();
-
         Deque<TreeNode> st = new ArrayDeque<>();
         st.addFirst(root);
-
+        Map<TreeNode, Integer> nodeSum = new HashMap<>();
+        int maxSum = Integer.MIN_VALUE;
+        // At each node,
         while (!st.isEmpty()) {
             TreeNode top = st.getFirst();
             if (top.left != null && !nodeSum.containsKey(top.left))
@@ -53,12 +51,12 @@ class Iterative_BTMaxPathSum {
                 st.addFirst(top.right);
             else {
                 top = st.removeFirst();
-                int leftSum = nodeSum.getOrDefault(top.left, 0);
-                int rightSum = nodeSum.getOrDefault(top.right, 0);
-                // MaxSum rooted at current Node
-                int max = Math.max(top.val, Math.max(top.val + leftSum, top.val + rightSum));
-                maxSum = Math.max(maxSum, Math.max(leftSum + rightSum + top.val, max));
-                nodeSum.put(top, max);
+                int l = Math.max(0, nodeSum.getOrDefault(top.left, 0));
+                int r = Math.max(0, nodeSum.getOrDefault(top.right, 0));
+
+                int maxAtNode = Math.max(l, r) + top.val;
+                maxSum = Math.max(maxSum, l + r + top.val);
+                nodeSum.put(top, maxAtNode); // Store the max Path information for a node
             }
         }
         return maxSum;

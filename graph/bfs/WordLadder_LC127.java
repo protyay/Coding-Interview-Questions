@@ -4,42 +4,45 @@ import java.util.*;
 
 public class WordLadder_LC127 {
     public int ladderLength(String beginWord, String endWord, List<String> wordList) {
-        if (!wordList.contains(endWord))
+
+        Set<String> dic = new HashSet<>(wordList);
+        if (!dic.contains(endWord))
             return 0;
-        Deque<String> words = new ArrayDeque<>();
-        Map<String, Boolean> visited = new HashMap<>();
-        for (int i = 0; i < wordList.size(); i++)
-            visited.put(wordList.get(i), false);
 
-        words.addLast(beginWord);
-        visited.put(beginWord, true);
+        Set<String> visited = new HashSet<>();
+        visited.add(beginWord);
+        Deque<String> q = new ArrayDeque<>();
+        q.addLast(beginWord);
+
         int level = 1;
+        while (!q.isEmpty()) {
+            int size = q.size();
+            while (size-- > 0) {
 
-        while (!words.isEmpty()) {
-            int len = words.size();
-            while (len-- > 0) {
-                String currWord = words.removeFirst();
-                if (currWord.equals(endWord))
+                String head = q.removeFirst();
+                if (head.equals(endWord))
                     return level;
-                findEdge(currWord, visited, words);
+
+                transform(q, dic, head, visited);
             }
             ++level;
         }
         return 0;
     }
 
-    private void findEdge(String currWord, Map<String, Boolean> visited, Deque<String> words) {
-        char[] ch = currWord.toCharArray();
+    private void transform(Deque<String> q, Set<String> dic, String head, Set<String> visited) {
+        char[] ch = head.toCharArray();
         for (int i = 0; i < ch.length; i++) {
-            ch = currWord.toCharArray();
-            for (int k = 0; k < 26; k++) {
-                ch[i] = (char) ('a' + k);
-                String newStr = new String(ch);
-                if (visited.containsKey(newStr) && !visited.get(newStr)) {
-                    words.addLast(newStr);
-                    visited.put(newStr, true);
+            char temp = ch[i];
+            for (int j = 0; j < 26; j++) {
+                ch[i] = (char) ('a' + j);
+                String strNew = String.valueOf(ch);
+                if (dic.contains(strNew) && !visited.contains(strNew)) {
+                    visited.add(strNew);
+                    q.addLast(strNew);
                 }
             }
+            ch[i] = temp;
         }
     }
 
