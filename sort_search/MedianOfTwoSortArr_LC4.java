@@ -43,45 +43,35 @@ public class MedianOfTwoSortArr_LC4 {
 
 class SecondApproach {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
-        // Consider the smaller array
         if (nums1.length > nums2.length)
             return findMedianSortedArrays(nums2, nums1);
 
-        // We choose the mid point in the smaller array
-        int N1 = nums1.length;
-        int N2 = nums2.length;
-
-        // We are trying to extract equal halves.
+        int N1 = nums1.length, N2 = nums2.length;
         int leftReqd = (N1 + N2 + 1) / 2;
         boolean isEven = (N1 + N2) % 2 == 0;
-
         int lo = 0, hi = N1;
+
         while (lo <= hi) {
-            int mid = lo + (hi - lo) / 2;
+            int mid1 = lo + (hi - lo) / 2;
 
-            // pIdx is the index at which we partition nums2
-            int pIdx = leftReqd - mid;
+            int mid2 = leftReqd - mid1;
 
-            int l1 = mid == 0 ? Integer.MIN_VALUE : nums1[mid - 1];// We have NOTHING to take from nums1
-            int l2 = pIdx == 0 ? Integer.MIN_VALUE : nums2[pIdx - 1]; // We don't need any value from nums2
-            // to satisfy the requirements for the size of the left array.
+            int l1 = mid1 == 0 ? Integer.MIN_VALUE : nums1[mid1 - 1];
+            int l2 = mid2 == 0 ? Integer.MIN_VALUE : nums2[mid2 - 1];
 
-            int r1 = mid == N1 ? Integer.MAX_VALUE : nums1[mid];// We have NOTHING to take from nums1 into
-            // the right partition.
-            int r2 = pIdx == N2 ? Integer.MAX_VALUE : nums2[pIdx]; // We have nothing to take from nums1 into
-            // the right partition
-            
-            // We need to determine whether we have taken more from nums1 or from nums2;
+            int r1 = mid1 == N1 ? Integer.MAX_VALUE : nums1[mid1];
+            int r2 = mid2 == N2 ? Integer.MAX_VALUE : nums2[mid2];
+
             if (l1 <= r2 && l2 <= r1) {
-
-                if (isEven) {
-                    return (Math.max(l1, l2) + Math.min(r1, r2)) / 2.0;
+                double ans = (Math.max(l1, l2) + Math.min(r1, r2)) / 2.0;
+                if (!isEven) {
+                    ans = Math.max(l1, l2) * 1.0;
                 }
-                return Math.max(l1, l2) * 1.0;
+                return ans;
             } else if (l1 > r2)
-                hi = mid - 1;
+                hi = mid1 - 1;
             else
-                lo = mid + 1;
+                lo = mid1 + 1;
         }
         return 0.0;
     }
@@ -97,7 +87,8 @@ class SecondApproach {
     }
 }
 /**
- * There are very important three points to conside in this problem
- * 1. To consitently handle empty subarrays - we need to introduce a construct of infinity values
- * 2. make sure you use equals in l1 and r2 and l2 and r1 comparison
+ * There are very important three points to conside in this problem 1. To
+ * consitently handle empty subarrays - we need to introduce a construct of
+ * infinity values 2. make sure you use equals in l1 and r2 and l2 and r1
+ * comparison
  */
